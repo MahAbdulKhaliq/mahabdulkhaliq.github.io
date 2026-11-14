@@ -82,6 +82,7 @@ ol {
 
 main,
 .view,
+.box-stack,
 .section {
   display: flex;
   flex-direction: column;
@@ -308,6 +309,115 @@ main:focus {
   from {
     opacity: 0;
   }
+}
+
+/* ---------- Experience tab: two stacked boxes, one open at a time ---------- */
+
+.box-stack .section-clip {
+  transition: grid-template-rows 0.34s cubic-bezier(0.2, 0.7, 0.2, 1); /* SWITCH_MS */
+}
+
+.box-stack .section {
+  transition:
+    margin 0.34s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.2s;
+}
+
+.box-stack .section-title {
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.box-stack .section {
+  margin-top: 1.4rem;
+}
+
+/* A collapsed box folds away completely, title and border included. */
+.section[data-collapsed] {
+  flex-shrink: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-color: transparent;
+}
+
+.section[data-collapsed] .section-title {
+  opacity: 0;
+  visibility: hidden;
+}
+
+[data-motion='off'] .box-stack .section,
+[data-motion='off'] .box-stack .section-title {
+  transition: none;
+}
+
+.section[data-collapsed] .section-clip {
+  grid-template-rows: 0fr;
+}
+
+.section[data-collapsed] .section-inner,
+.box-stack[data-moving] .section-inner {
+  overflow-y: hidden;
+}
+
+[data-motion='off'] .box-stack .section-clip {
+  transition: none;
+}
+
+/* The two buttons above the box, lined up with the box titles. */
+.box-toggles {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: clamp(1.25rem, 3.5vh, 2rem) 0 0 clamp(0.5rem, 2vw, 1.1rem);
+}
+
+.box-toggle {
+  padding: 0 0.6rem;
+  border: 0;
+  background: none;
+  color: var(--dim);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.box-toggle:hover {
+  color: var(--amber);
+}
+
+/* The open one is inverted, like the selected tab in the top bar. */
+.box-toggle[aria-pressed='true'] {
+  background: var(--green);
+  color: var(--bg);
+  cursor: default;
+}
+
+.box-toggle[aria-pressed='true'] .prompt {
+  color: inherit;
+}
+
+.skills {
+  margin: 0;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
+  gap: 0 1.5ch;
+}
+
+.skill-row + .skill-row {
+  margin-top: 0.6rem;
+}
+
+.skill-row dt {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.skill-row dd {
+  margin: 0;
 }
 
 /* ---------- Home ---------- */
@@ -579,5 +689,10 @@ main:focus {
 
   .portrait {
     width: 10rem;
+  }
+
+  /* Skill groups stack their heading over the list on a phone. */
+  .skill-row {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -120,6 +120,20 @@ export const experience = [
   },
 ]
 
+// The Experience tab's second box, behind "view skills". From the resume.
+export const skills = [
+  { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS'] },
+  {
+    group: 'Backend',
+    items: ['.NET 8', 'ASP.NET Core', 'Entity Framework Core', 'REST APIs', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
+  },
+  { group: 'Frontend', items: ['React', 'Angular', 'RxJS', 'React Hook Form', 'Angular Material'] },
+  { group: 'Data', items: ['PostgreSQL', 'SQL Server', 'BigQuery'] },
+  { group: 'Testing', items: ['xUnit', 'Jest', 'React Testing Library', 'Cypress', 'Selenium'] },
+  { group: 'Tools', items: ['Git', 'GitLab CI/CD', 'Docker', 'Jira', 'Unleash'] },
+  { group: 'AI', items: ['Claude Code', 'OpenAI Codex', 'OpenCode'] },
+]
+
 export const education = [
   {
     school: 'Mohawk College',

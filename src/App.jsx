@@ -6,6 +6,7 @@ import {
   projects,
   projectsNote,
   experience,
+  skills,
   education,
   interests,
   footerExtras,
@@ -251,17 +252,22 @@ function FooterLine({ children, phrases, animate }) {
 }
 
 // A bordered terminal panel. The visible heading is the command; screen
-// readers get the plain title.
-function Section({ tab, children }) {
+// readers get the plain title. A collapsed box shows only its border and title.
+function Section({ tab, collapsed = false, children }) {
   return (
-    <section className="section" aria-labelledby={`${tab.id}-title`}>
+    <section
+      id={`${tab.id}-box`}
+      className="section"
+      aria-labelledby={`${tab.id}-title`}
+      data-collapsed={collapsed ? '' : undefined}
+    >
       <h2 id={`${tab.id}-title`} className="section-title" aria-label={tab.label}>
         <span aria-hidden="true">
           <span className="prompt">$</span> {tab.command}
         </span>
       </h2>
       {/* section-clip is what collapses and expands when tabs change. */}
-      <div className="section-clip">
+      <div className="section-clip" inert={collapsed}>
         <div className="section-inner">
           <div className="section-body">{children}</div>
         </div>
@@ -390,6 +396,75 @@ function Experience() {
   )
 }
 
+function Skills() {
+  return (
+    <dl className="skills">
+      {skills.map((group) => (
+        <div key={group.group} className="skill-row">
+          <dt>{group.group}</dt>
+          <dd>{group.items.join(', ')}</dd>
+        </div>
+      ))}
+    </dl>
+  )
+}
+
+const SKILLS_BOX = { id: 'skills', label: 'Skills', command: 'cat skills.txt' }
+// Keep in step with the .section-clip transition in styles.css.
+const SWITCH_MS = 340
+
+// The Experience tab holds two boxes, experience and skills, with only one
+// open at a time. Two buttons above them pick which one is open. Experience
+// is the one open each time the tab opens.
+function ExperienceTab({ tab }) {
+  const [showSkills, setShowSkills] = useState(false)
+  const [moving, setMoving] = useState(false)
+  const timer = useRef(0)
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+
+  function pick(skillsOpen) {
+    if (skillsOpen === showSkills) return
+    setShowSkills(skillsOpen)
+    // Hide the scrollbars while the boxes resize.
+    setMoving(true)
+    window.clearTimeout(timer.current)
+    timer.current = window.setTimeout(() => setMoving(false), SWITCH_MS)
+  }
+
+  const choices = [
+    { label: 'view experience', skills: false, box: `${tab.id}-box` },
+    { label: 'view skills', skills: true, box: 'skills-box' },
+  ]
+
+  return (
+    <div className="box-stack" data-moving={moving ? '' : undefined}>
+      <div className="box-toggles">
+        {choices.map((choice) => (
+          <button
+            key={choice.label}
+            type="button"
+            className="box-toggle"
+            aria-pressed={choice.skills === showSkills}
+            aria-controls={choice.box}
+            onClick={() => pick(choice.skills)}
+          >
+            <span className="prompt" aria-hidden="true">
+              &gt;
+            </span>{' '}
+            {choice.label}
+          </button>
+        ))}
+      </div>
+      <Section tab={tab} collapsed={showSkills}>
+        <Experience />
+      </Section>
+      <Section tab={SKILLS_BOX} collapsed={!showSkills}>
+        <Skills />
+      </Section>
+    </div>
+  )
+}
+
 function Outside() {
   return (
     <ul className="cards">
@@ -432,7 +507,6 @@ const PANELS = {
   home: Home,
   about: About,
   projects: Projects,
-  experience: Experience,
   outside: Outside,
   contact: Contact,
 }
@@ -536,9 +610,13 @@ export default function App() {
       <main id="content" tabIndex={-1}>
         {/* The key remounts the view for each tab, which replays the open animation. */}
         <div key={shown} className="view" data-phase={phase}>
-          <Section tab={tab}>
-            <Panel motion={motion} />
-          </Section>
+          {shown === 'experience' ? (
+            <ExperienceTab tab={tab} />
+          ) : (
+            <Section tab={tab}>
+              <Panel motion={motion} />
+            </Section>
+          )}
         </div>
       </main>
 
