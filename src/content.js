@@ -61,7 +61,7 @@ export const projects = [
     summary:
       'A terminal-styled portfolio built with React and Vite. Each section is a tab that collapses and expands, all the content comes from one data file, and the build is a static bundle.',
     stack: ['React', 'Vite', 'CSS'],
-    repo: '', // TODO: add the link once this site is in a public repo
+    repo: 'https://github.com/MahAbdulKhaliq/mahabdulkhaliq.github.io',
     demo: '',
   },
   {
