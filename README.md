@@ -1,6 +1,7 @@
 # Portfolio website
 
 Personal portfolio site built with React and Vite.
+Visit it publically at https://mahabdulkhaliq.github.io/.
 
 ## Run it
 
