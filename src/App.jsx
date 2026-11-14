@@ -23,6 +23,8 @@ const TABS = [
 
 // Keep in step with the box-close animation in styles.css.
 const CLOSE_MS = 240
+// A little longer than box-open, after which the box may show its scrollbar.
+const OPEN_MS = 400
 
 // Animations follow the visitor's system setting until they use the toggle.
 function initialMotion() {
@@ -446,6 +448,13 @@ export default function App() {
   const targetRef = useRef(shown)
   const timer = useRef(0)
   const [motion, setMotion] = useState(initialMotion)
+
+  // Once the box has finished opening, mark it open so it can scroll.
+  useEffect(() => {
+    if (phase !== 'opening') return undefined
+    const done = window.setTimeout(() => setPhase('open'), OPEN_MS)
+    return () => window.clearTimeout(done)
+  }, [phase, shown])
 
   function toggleMotion() {
     const next = !motion
