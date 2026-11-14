@@ -34,6 +34,7 @@ export const profile = {
 
 export const links = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mahabdulkhaliq' },
+  { label: 'GitHub', href: 'https://github.com/MahAbdulKhaliq' },
   { label: 'Resume (PDF)', href: './resume.pdf' }, // built from resume/resume.html
   { label: 'Email', href: 'mailto:mahabdulkhaliq@gmail.com' },
 ]
