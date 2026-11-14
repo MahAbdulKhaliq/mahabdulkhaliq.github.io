@@ -1,0 +1,208 @@
+<!doctype html>
+<!--
+  Source for public/resume.pdf. Edit this file, then run resume/build.ps1 to
+  regenerate the PDF. It is laid out for one US Letter page.
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Resume - Mahmood Abdul-Khaliq</title>
+    <style>
+      @page {
+        size: Letter;
+        margin: 0.55in 0.65in;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: #000;
+        font-family: Charter, 'Bitstream Charter', 'XCharter', Cambria, Georgia, serif;
+        font-size: 10.4pt;
+        line-height: 1.32;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 21pt;
+        text-align: center;
+      }
+
+      .contact {
+        margin: 3pt 0 0;
+        font-size: 9pt;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .contact span + span::before {
+        content: '|';
+        margin: 0 4pt;
+      }
+
+      h2 {
+        margin: 11pt 0 5pt;
+        padding-bottom: 2pt;
+        border-bottom: 1.2pt solid #000;
+        font-size: 10.4pt;
+        font-variant: small-caps;
+        letter-spacing: 0.03em;
+      }
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+        gap: 12pt;
+      }
+
+      .org {
+        margin-top: 4pt;
+        font-weight: bold;
+      }
+
+      .org span:last-child {
+        font-weight: normal;
+      }
+
+      .role {
+        font-style: italic;
+      }
+
+      ul {
+        margin: 2pt 0 3pt;
+        padding-left: 15pt;
+      }
+
+      li {
+        margin-bottom: 1.5pt;
+        padding-left: 2pt;
+      }
+
+      .skills p {
+        margin: 0 0 1.5pt;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Mahmood Abdul-Khaliq</h1>
+    <p class="contact">
+      <span>Ontario, Canada</span>
+      <span>905-966-3437</span>
+      <span><a href="mailto:mahabdulkhaliq@gmail.com">mahabdulkhaliq@gmail.com</a></span>
+      <span><a href="https://www.linkedin.com/in/mahabdulkhaliq">linkedin.com/in/mahabdulkhaliq</a></span>
+      <span><a href="https://github.com/MahAbdulKhaliq">github.com/MahAbdulKhaliq</a></span>
+    </p>
+
+    <h2>Experience</h2>
+
+    <div class="row org"><span>Geotab</span><span>Oakville, ON</span></div>
+    <div class="row role"><span>Software Developer</span><span>Aug 2023 – Oct 2026</span></div>
+    <ul>
+      <li>
+        Owned a customer-notification service (email and in-app banners), shipping 20+ production
+        improvements including multi-language templates and per-database targeting (C#, EF Core,
+        Hangfire, React).
+      </li>
+      <li>
+        Cut PostgreSQL load by removing N+1 queries, running batched queries concurrently, and
+        collapsing thousands of bulk emails into a single send.
+      </li>
+      <li>
+        Notable contributor to the Angular → React 18 migration of two core admin pages across 40+
+        tickets.
+      </li>
+      <li>
+        Extended an LLM-powered natural-language device search (service and system prompt) to
+        handle billing-status and multi-value rate-plan queries.
+      </li>
+      <li>
+        Cleared recurring high-latency alerts on device-telemetry endpoints by removing duplicate
+        upstream calls and capping requests at 10K IDs; fixed a concurrency bug in TPL Dataflow.
+      </li>
+      <li>
+        Led the platform side of a cross-team connected-vehicle device-registration launch with 3
+        partner teams.
+      </li>
+      <li>
+        Unified two device-provisioning paths into one provision-then-bill pipeline; fixed SSRF and
+        PII-exposure vulnerabilities and delivered WCAG 2.2 AA fixes.
+      </li>
+      <li>
+        Release manager for 7 releases; met every 2026 testing deadline and reverted a
+        login-blocking change same day.
+      </li>
+      <li>
+        Mentored 4 developers and 3 new on-call engineers; grew an intern into an independent code
+        reviewer.
+      </li>
+      <li>
+        Reviewed a large share of the team’s merge requests (22 → 83 approvals, 2025–26) and 91
+        data scripts.
+      </li>
+      <li>
+        Built Claude Code agent skills that automate weekly release testing, saving 15–20 minutes
+        per release.
+      </li>
+    </ul>
+
+    <div class="row role">
+      <span>Software Developer Intern (converted to full-time)</span><span>May 2022 – Aug 2023</span>
+    </div>
+    <ul>
+      <li>
+        Designed a public bulk device-provisioning API for integrators with per-item results (HTTP
+        207).
+      </li>
+      <li>
+        Built the advanced filter suite for the main device admin page (Angular, ASP.NET Core,
+        PostgreSQL) with Cypress E2E coverage.
+      </li>
+      <li>
+        Fixed a broken-access-control vulnerability that exposed other accounts’ records through
+        URL ID changes.
+      </li>
+    </ul>
+
+    <div class="row org"><span>Auto Key Pro</span><span>Hamilton, ON</span></div>
+    <div class="row role"><span>Web/Software Developer</span><span>2021</span></div>
+    <ul>
+      <li>
+        Maintained the company site and PHP/JS plugins; built a Vue.js feature using the Google
+        Maps API.
+      </li>
+    </ul>
+
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <p><b>Languages:</b> C#, TypeScript, JavaScript, SQL, HTML, SCSS/CSS</p>
+      <p>
+        <b>Backend:</b> .NET 8 / ASP.NET Core, EF Core, REST APIs, Hangfire, Polly, async/TPL,
+        Protocol Buffers
+      </p>
+      <p><b>Frontend:</b> React 18, Angular 16, RxJS, React Hook Form, Angular Material</p>
+      <p>
+        <b>Data &amp; Testing:</b> PostgreSQL, SQL Server, BigQuery · xUnit, Jest/RTL, Cypress,
+        Selenium
+      </p>
+      <p>
+        <b>Tools &amp; AI:</b> Git, GitLab CI/CD, Docker, Jira, Unleash · Claude Code, OpenAI Codex,
+        OpenCode
+      </p>
+    </div>
+
+    <h2>Education</h2>
+    <div class="row org"><span>Mohawk College</span><span>Hamilton, ON</span></div>
+    <div class="row role">
+      <span>Advanced Diploma, Software Development · Diploma, Software Support</span
+      ><span>2018 – 2021</span>
+    </div>
+  </body>
+</html>
