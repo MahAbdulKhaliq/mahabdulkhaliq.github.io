@@ -7,13 +7,21 @@ export const profile = {
   // Photos live in /public/photos. Until a file exists, the site shows a
   // labelled empty frame in its place.
   portrait: './photos/portrait.jpg',
-  // Typed and erased one after another under the name on the Home tab.
+  // Typed and erased under the name on the Home tab. `tagline` shows first and
+  // then every third time; the two in between are drawn at random from
+  // `taglines`, which is used up completely before any phrase repeats.
+  tagline: 'full-stack developer',
   taglines: [
-    'full-stack developer',
     'kinda strong',
     'cat lover',
     'pizza enjoyer',
     'cost conscious',
+    'hello, world!',
+    'my cat runs the show',
+    'how does this thing work again?',
+    'i promise i won’t break prod',
+    'sudo rm -rf... just kidding. ;)',
+    'a bit of a night owl',
   ],
   greeting: 'Hi, I’m Mahmood.',
   summary:
@@ -167,4 +175,17 @@ export const interests = [
     note: 'I started learning about electric cars when I got my Chevrolet Volt in 2024. I was hesitant at first, which is why I went with a plug-in hybrid, but I got hooked once I realized about 90% of my driving was fully electric. My next car will be a full EV.',
     photo: './photos/ev.jpg',
   },
+]
+
+// Footer easter egg. One of these is typed after "Built with React and Vite."
+// at random, then erased. A phrase starting with "..." continues the sentence.
+export const footerExtras = [
+  '... and a bit of love. <3',
+  '... with a bit of spice. >:)',
+  '... and a LOT of $1.50 hotdogs.',
+  '... and two very involved cats.',
+  '... and some pre-workout.',
+  '... and around 150mg of caffeine.',
+  '... and a bit of mischief. :^)',
+  'ffgjggjjjjjjjjjjjjjjjjjjjj... oops, Layla got on the keyboard.',
 ]

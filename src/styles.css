@@ -484,6 +484,27 @@ main:focus {
   font-size: 0.85rem;
 }
 
+/* The typed lines on Home and in the footer are buttons, so a click can skip
+   to the next phrase, but they should look like plain text. Ligatures are off
+   because the font would merge the footer sentence's period with typed dots
+   into one glyph, and the period then stays blank after the dots are erased. */
+.text-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-variant-ligatures: none;
+  text-align: left;
+  white-space: inherit;
+  cursor: pointer;
+}
+
+/* With animations off a click does nothing, so don't suggest one. */
+[data-motion='off'] .text-button {
+  cursor: default;
+}
+
 @media (max-width: 720px) {
   .bar-host {
     display: none;

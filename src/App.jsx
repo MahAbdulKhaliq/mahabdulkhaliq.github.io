@@ -8,6 +8,7 @@ import {
   experience,
   education,
   interests,
+  footerExtras,
 } from './content.js'
 
 // One tab is on screen at a time. `command` is the heading shown on the panel.
@@ -34,62 +35,98 @@ function initialMotion() {
   return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
 }
 
-// Types a phrase, blinks the cursor once it is complete, erases it, then
-// moves to the next one. With motion off it shows the first phrase as is.
-function Typer({ phrases, animate }) {
-  const [text, setText] = useState(animate ? '' : phrases[0])
+// How long a finished phrase stays on screen, on Home and in the footer.
+const HOLD_MS = 5000
+
+// Types a phrase, blinks the cursor while it is held, erases it, then types
+// the next. `main` comes first and then every third time; the two in between
+// are drawn at random from `phrases`, with none repeated until all are used.
+// Clicking skips straight to the next phrase. With motion off it shows `main`.
+function Typer({ main, phrases, animate }) {
+  const [text, setText] = useState(animate ? '' : main)
   const [idle, setIdle] = useState(false)
+  const trigger = useRef(null)
 
   useEffect(() => {
     if (!animate) {
-      setText(phrases[0])
+      setText(main)
       setIdle(false)
       return
     }
 
-    let phrase = 0
+    let full = ''
     let length = 0
-    let typing = true
+    let shown = 0
+    let bag = []
+    let last = ''
     let timer = 0
-
-    const tick = () => {
-      const full = phrases[phrase]
-      if (typing) {
-        length += 1
-        setText(full.slice(0, length))
-        if (length === full.length) {
-          typing = false
-          setIdle(true)
-          timer = window.setTimeout(tick, 2200)
-        } else {
-          timer = window.setTimeout(tick, 75)
-        }
-      } else {
-        setIdle(false)
-        length -= 1
-        setText(full.slice(0, length))
-        if (length === 0) {
-          typing = true
-          phrase = (phrase + 1) % phrases.length
-          timer = window.setTimeout(tick, 450)
-        } else {
-          timer = window.setTimeout(tick, 35)
-        }
-      }
+    const after = (ms, next) => {
+      window.clearTimeout(timer)
+      timer = window.setTimeout(next, ms)
     }
 
-    setText('')
-    timer = window.setTimeout(tick, 700)
-    return () => window.clearTimeout(timer)
-  }, [animate, phrases])
+    // Refill the bag with a fresh shuffle once every phrase has been used.
+    const draw = () => {
+      if (bag.length === 0) {
+        bag = [...phrases]
+        for (let i = bag.length - 1; i > 0; i -= 1) {
+          const j = Math.floor(Math.random() * (i + 1))
+          ;[bag[i], bag[j]] = [bag[j], bag[i]]
+        }
+        // Don't open a new round with the phrase that closed the last one.
+        if (bag.length > 1 && bag.at(-1) === last) bag.reverse()
+      }
+      last = bag.pop()
+      return last
+    }
+
+    const begin = () => {
+      full = shown % 3 === 0 || phrases.length === 0 ? main : draw()
+      shown += 1
+      length = 0
+      setText('')
+      setIdle(false)
+      after(450, type)
+    }
+    const type = () => {
+      length += 1
+      setText(full.slice(0, length))
+      if (length === full.length) {
+        setIdle(true)
+        after(HOLD_MS, erase)
+      } else {
+        after(75, type)
+      }
+    }
+    const erase = () => {
+      setIdle(false)
+      length -= 1
+      setText(full.slice(0, length))
+      if (length === 0) begin()
+      else after(35, erase)
+    }
+
+    trigger.current = begin
+    begin()
+    return () => {
+      window.clearTimeout(timer)
+      trigger.current = null
+    }
+  }, [animate, main, phrases])
 
   return (
     <p className="typer">
-      <span className="sr-only">{phrases.join(', ')}</span>
-      <span aria-hidden="true">
+      <span className="sr-only">{main}</span>
+      <button
+        type="button"
+        className="text-button"
+        aria-hidden="true"
+        tabIndex={-1}
+        onClick={() => trigger.current?.()}
+      >
         <span className="prompt">&gt;</span> {text}
         <span className={idle ? 'cursor blink' : 'cursor'} />
-      </span>
+      </button>
     </p>
   )
 }
@@ -116,6 +153,98 @@ function Photo({ src, alt, className = '' }) {
       alt={alt}
       onError={() => setMissing(true)}
     />
+  )
+}
+
+// The footer line, with an easter egg. Every 20 seconds a cursor appears after
+// the sentence and types a random phrase from footerExtras, holds it for 5
+// seconds, erases it and disappears. Clicking the line skips the wait and
+// starts a fresh phrase straight away. With motion off it stays a plain line.
+const FOOTER_WAIT_MS = 20000
+
+function FooterLine({ children, phrases, animate }) {
+  const [text, setText] = useState('')
+  const [cursor, setCursor] = useState(false)
+  const [idle, setIdle] = useState(false)
+  const trigger = useRef(null)
+  const lastPick = useRef(-1)
+
+  useEffect(() => {
+    setText('')
+    setCursor(false)
+    if (!animate || phrases.length === 0) return
+
+    let full = ''
+    let length = 0
+    let timer = 0
+    // Only one step is ever pending, so starting a new one cancels the old.
+    const after = (ms, next) => {
+      window.clearTimeout(timer)
+      timer = window.setTimeout(next, ms)
+    }
+
+    // Random, but never the same phrase twice in a row. The sentence already
+    // ends in a period, so a phrase that opens with "..." only adds two more.
+    const pick = () => {
+      let index = Math.floor(Math.random() * phrases.length)
+      if (phrases.length > 1 && index === lastPick.current) {
+        index = (index + 1) % phrases.length
+      }
+      lastPick.current = index
+      const phrase = phrases[index]
+      return phrase.startsWith('...') ? phrase.slice(1) : ` ${phrase}`
+    }
+
+    const appear = () => {
+      full = pick()
+      length = 0
+      setText('')
+      setCursor(true)
+      setIdle(true)
+      after(700, type)
+    }
+    const type = () => {
+      setIdle(false)
+      length += 1
+      setText(full.slice(0, length))
+      if (length === full.length) {
+        setIdle(true)
+        after(HOLD_MS, erase)
+      } else {
+        after(75, type)
+      }
+    }
+    const erase = () => {
+      setIdle(false)
+      length -= 1
+      setText(full.slice(0, length))
+      if (length === 0) {
+        setCursor(false)
+        after(FOOTER_WAIT_MS, appear)
+      } else {
+        after(30, erase)
+      }
+    }
+
+    trigger.current = appear
+    after(FOOTER_WAIT_MS, appear)
+    return () => {
+      window.clearTimeout(timer)
+      trigger.current = null
+    }
+  }, [animate, phrases])
+
+  return (
+    <button type="button" className="text-button" onClick={() => trigger.current?.()}>
+      <span className="prompt" aria-hidden="true">
+        &gt;
+      </span>{' '}
+      {children}
+      <span aria-hidden="true">
+        {text}
+        {cursor && <span className={idle ? 'cursor blink' : 'cursor'} />}
+      </span>
+    </button>
   )
 }
 
@@ -159,7 +288,9 @@ function Home({ motion }) {
         </span>
       </h1>
 
-      {profile.taglines.length > 0 && <Typer phrases={profile.taglines} animate={motion} />}
+      {profile.tagline && (
+        <Typer main={profile.tagline} phrases={profile.taglines} animate={motion} />
+      )}
 
       <div className="intro">
         {profile.portrait && (
@@ -404,7 +535,9 @@ export default function App() {
 
       <footer className="footer">
         <p>
-          {fullName}, {new Date().getFullYear()}. Built with React and Vite.
+          <FooterLine phrases={footerExtras} animate={motion}>
+            {`${fullName}, ${new Date().getFullYear()}. Built with React and Vite.`}
+          </FooterLine>
         </p>
       </footer>
     </div>
