@@ -12,7 +12,7 @@ npm run dev
 
 ## Edit content
 
-All text, links and projects live in `src/content.js`. Search for `TODO` to find
+All text, links and projects live in `src/content/`, one file per section. Search for `TODO` to find
 the placeholders. To add the resume link, save your PDF as `public/resume.pdf`.
 
 ## Deploy

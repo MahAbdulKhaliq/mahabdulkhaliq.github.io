@@ -1,0 +1,67 @@
+.bar {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.4rem 1.5rem;
+  padding: 0.75rem 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.9rem;
+}
+
+.bar-host {
+  color: var(--green);
+  margin-right: auto;
+}
+
+.bar-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: flex-end;
+  gap: 0.4rem 1.25rem;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.nav a {
+  padding: 0 0.5ch;
+  color: var(--dim);
+  text-decoration: none;
+}
+
+.nav a:hover {
+  color: var(--amber);
+}
+
+/* The open tab is shown inverted, like a selected item in a terminal menu. */
+.nav a[aria-current='page'] {
+  background: var(--green);
+  color: var(--bg);
+  font-weight: 700;
+}
+
+.motion-toggle {
+  padding: 0 0.75ch;
+  border: 1px solid var(--rule);
+  background: none;
+  color: var(--dim);
+  font: inherit;
+  cursor: pointer;
+}
+
+.motion-toggle:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+
+@media (max-width: 720px) {
+  .bar-host {
+    display: none;
+  }
+}

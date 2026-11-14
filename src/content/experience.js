@@ -1,0 +1,49 @@
+// The Experience tab: jobs, and the skills box behind "view skills".
+
+export const experience = [
+  {
+    role: 'Software Developer',
+    company: 'Geotab',
+    dates: 'Aug 2023 to Oct 2026',
+    points: [
+      'Notable contributor to the Angular to React rebuilds of the device management and RMA pages: data tables, advanced filtering and multi-step workflow dialogs, built on a shared component design system.',
+      'Owned a customer-communications service that sends multi-language email and in-app notifications, from schema design through background jobs to the UI.',
+      'Improved backend performance by removing N+1 queries, batching and parallelizing database calls, and adding PostgreSQL indexes.',
+      'Fixed security vulnerabilities including SSRF, broken access control and XSS, and delivered WCAG 2.2 AA accessibility improvements.',
+      'Served as release manager for seven production releases, took on-call rotations, reviewed a large share of the team’s merge requests and mentored four teammates.',
+    ],
+  },
+  {
+    role: 'Software Developer Intern',
+    company: 'Geotab',
+    dates: 'May 2022 to Aug 2023',
+    points: [
+      'Built a suite of advanced search filters for the main device administration page (Angular, ASP.NET Core, PostgreSQL), each covered by Cypress end-to-end tests.',
+      'Designed a public bulk device-provisioning API used by external integrators and a partner product team.',
+      'Fixed a broken-access-control vulnerability that let users read other accounts’ records by changing an ID in the URL.',
+    ],
+  },
+  {
+    role: 'Web and Software Developer (Co-op)',
+    company: 'Auto Key Pro',
+    dates: 'Jul 2021 to Sep 2021',
+    points: [
+      'Built Zapier automations connecting Google Calendar, Drive and Sheets to the day-to-day work: messaging customers when appointments were scheduled, notifying the assigned technicians, and logging jobs to Google Sheets.',
+      'Maintained the company’s WordPress site and its in-house PHP plugin, keeping its data and security updates current.',
+    ],
+  },
+]
+
+// The Experience tab's second box, behind "view skills". From the resume.
+export const skills = [
+  { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS'] },
+  {
+    group: 'Backend',
+    items: ['.NET 8', 'ASP.NET Core', 'Entity Framework Core', 'REST APIs', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
+  },
+  { group: 'Frontend', items: ['React', 'Angular', 'RxJS', 'React Hook Form', 'Angular Material'] },
+  { group: 'Data', items: ['PostgreSQL', 'SQL Server', 'BigQuery'] },
+  { group: 'Testing', items: ['xUnit', 'Jest', 'React Testing Library', 'Cypress', 'Selenium'] },
+  { group: 'Tools', items: ['Git', 'GitLab CI/CD', 'Docker', 'Jira', 'Unleash'] },
+  { group: 'AI', items: ['Claude Code', 'OpenAI Codex', 'OpenCode'] },
+]

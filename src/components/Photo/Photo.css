@@ -1,0 +1,45 @@
+/* ---------- Photos ---------- */
+
+.photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border: 1px solid var(--rule);
+}
+
+.portrait {
+  aspect-ratio: 4 / 5;
+}
+
+/* Empty frame shown until the image file exists. */
+.photo-empty {
+  display: grid;
+  place-items: center;
+  padding: 0.75rem;
+  border-style: dashed;
+  border-color: var(--dim);
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 7px,
+    var(--rule) 7px,
+    var(--rule) 8px
+  );
+  color: var(--dim);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+
+.photo-empty span {
+  background: var(--bg);
+  padding: 0.15rem 0.4rem;
+}
+
+@media (max-width: 720px) {
+  .portrait {
+    width: 10rem;
+  }
+}

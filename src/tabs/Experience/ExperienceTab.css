@@ -1,0 +1,70 @@
+/* Two stacked boxes, one open at a time. */
+.box-stack {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.box-stack .section-clip {
+  transition: grid-template-rows 0.34s cubic-bezier(0.2, 0.7, 0.2, 1); /* SWITCH_MS */
+}
+
+.box-stack .section {
+  transition:
+    margin 0.34s cubic-bezier(0.2, 0.7, 0.2, 1),
+    border-color 0.2s;
+}
+
+.box-stack .section:not([data-collapsed]) {
+  margin-top: 1.4rem;
+}
+
+.box-stack .section-title {
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+/* No scrollbars while the boxes resize. */
+.box-stack[data-moving] .section-inner {
+  overflow-y: hidden;
+}
+
+[data-motion='off'] .box-stack .section,
+[data-motion='off'] .box-stack .section-title,
+[data-motion='off'] .box-stack .section-clip {
+  transition: none;
+}
+
+/* The two buttons above the box, lined up with the box titles. */
+.box-toggles {
+  flex: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  margin: clamp(1.25rem, 3.5vh, 2rem) 0 0 clamp(0.5rem, 2vw, 1.1rem);
+}
+
+.box-toggle {
+  padding: 0 0.6rem;
+  border: 0;
+  background: none;
+  color: var(--dim);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.4;
+  cursor: pointer;
+}
+
+.box-toggle:hover {
+  color: var(--amber);
+}
+
+/* The open one is inverted, like the selected tab in the top bar. */
+.box-toggle[aria-pressed='true'] {
+  background: var(--green);
+  color: var(--bg);
+  cursor: default;
+}
+
+.box-toggle[aria-pressed='true'] .prompt {
+  color: inherit;
+}

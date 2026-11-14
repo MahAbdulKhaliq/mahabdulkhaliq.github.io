@@ -1,0 +1,105 @@
+/* Classes several components share: content rows, lists, the typing cursor. */
+
+.row + .row {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--rule);
+}
+
+.row h3,
+.sub {
+  color: var(--green);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.row p {
+  margin-top: 0.35rem;
+}
+
+.note {
+  color: var(--dim);
+}
+
+.meta {
+  color: var(--dim);
+  font-size: 0.9rem;
+}
+
+.row-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.points {
+  margin-top: 0.6rem;
+}
+
+.points li {
+  position: relative;
+  padding-left: 2ch;
+}
+
+.points li::before {
+  content: '-';
+  position: absolute;
+  left: 0;
+  color: var(--dim);
+}
+
+.points li + li {
+  margin-top: 0.4rem;
+}
+
+.prose + .prose {
+  margin-top: 1rem;
+}
+
+.sub {
+  margin-top: 1.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.cursor {
+  display: inline-block;
+  width: 0.6em;
+  height: 1.1em;
+  margin-left: 0.1em;
+  vertical-align: text-bottom;
+  background: var(--amber);
+}
+
+/* Blinks only while a finished phrase is on screen. */
+.cursor.blink {
+  animation: blink 1s steps(1, end) infinite;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The typed lines on Home and in the footer are buttons, so a click can skip
+   to the next phrase, but they should look like plain text. Ligatures are off
+   because the font would merge the footer sentence's period with typed dots
+   into one glyph, and the period then stays blank after the dots are erased. */
+.text-button {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-variant-ligatures: none;
+  text-align: left;
+  white-space: inherit;
+  cursor: pointer;
+}
+
+/* With animations off a click does nothing, so don't suggest one. */
+[data-motion='off'] .text-button {
+  cursor: default;
+}

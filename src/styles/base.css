@@ -1,0 +1,123 @@
+:root {
+  --bg: #0c1014;      /* terminal background */
+  --text: #d5dde5;    /* body text */
+  --dim: #8894a1;     /* secondary text */
+  --rule: #2a3541;    /* panel borders and dividers */
+  --green: #8fdc8a;   /* prompts and headings */
+  --amber: #f0b429;   /* cursor, focus ring and hover */
+
+  --mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --gutter: clamp(1rem, 4vw, 2.5rem);
+  --pad: clamp(1rem, 3vw, 1.75rem);
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--mono);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: var(--dim);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+}
+
+a:hover {
+  color: var(--amber);
+  text-decoration-color: var(--amber);
+}
+
+:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 3px;
+}
+
+h1,
+h2,
+h3,
+p,
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-size: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* The page is exactly one screen tall: top bar, the tab's box, footer. The
+   box takes whatever height is left and scrolls inside itself, so the bar and
+   footer are always on screen. dvh follows a phone's collapsing address bar. */
+.page {
+  display: flex;
+  flex-direction: column;
+  max-width: 58rem;
+  height: 100vh;
+  height: 100dvh;
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+main,
+.view,
+.section {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+main {
+  flex: 1 1 0;
+}
+
+main:focus {
+  outline: none;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+}
+
+.skip:focus {
+  left: var(--gutter);
+  top: 1rem;
+  z-index: 2;
+  background: var(--bg);
+  padding: 0.25rem 0.5rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.prompt {
+  color: var(--green);
+}

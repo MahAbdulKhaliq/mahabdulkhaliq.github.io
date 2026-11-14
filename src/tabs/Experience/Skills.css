@@ -1,0 +1,29 @@
+.skills {
+  margin: 0;
+}
+
+.skill-row {
+  display: grid;
+  grid-template-columns: 11ch minmax(0, 1fr);
+  gap: 0 1.5ch;
+}
+
+.skill-row + .skill-row {
+  margin-top: 0.6rem;
+}
+
+.skill-row dt {
+  color: var(--green);
+  font-weight: 700;
+}
+
+.skill-row dd {
+  margin: 0;
+}
+
+/* Skill groups stack their heading over the list on a phone. */
+@media (max-width: 720px) {
+  .skill-row {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

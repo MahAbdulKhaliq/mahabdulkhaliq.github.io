@@ -1,0 +1,143 @@
+/* ---------- Tabs: bordered boxes with the command on the border ---------- */
+
+.section {
+  position: relative;
+  margin: clamp(1.5rem, 4vh, 2.5rem) 0 clamp(0.75rem, 2.5vh, 1.5rem);
+  border: 1px solid var(--rule);
+}
+
+.section-title {
+  position: absolute;
+  top: 0;
+  left: clamp(0.5rem, 2vw, 1.1rem);
+  transform: translateY(-50%);
+  z-index: 1; /* stays above text scrolling underneath it */
+  padding: 0 0.6rem;
+  background: var(--bg);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* A one-row grid whose row animates between 1fr and 0fr: the box closes down
+   to a single line and opens to whatever height the new content needs. */
+.section-clip {
+  display: grid;
+  grid-template-rows: 1fr;
+  min-height: 0;
+}
+
+/* The scrolling area. The gutter is always reserved so text doesn't reflow
+   when the scrollbar comes and goes. */
+.section-inner {
+  min-height: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  overscroll-behavior: contain;
+  /* Scrolled text fades out just below the top border, clear of the title. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0.6rem, #000 1.5rem);
+  mask-image: linear-gradient(to bottom, transparent 0.6rem, #000 1.5rem);
+}
+
+/* No scrollbar while the box is collapsing or expanding. */
+.view:not([data-phase='open']) .section-inner {
+  overflow-y: hidden;
+}
+
+/* Terminal-style scrollbar: a square thumb in a thin ruled track. */
+.section-inner::-webkit-scrollbar {
+  width: 10px;
+}
+
+.section-inner::-webkit-scrollbar-track {
+  background: var(--bg);
+  border-left: 1px solid var(--rule);
+}
+
+.section-inner::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--dim) 55%, var(--bg));
+  border-left: 1px solid var(--rule);
+}
+
+.section-inner::-webkit-scrollbar-thumb:hover,
+.section-inner::-webkit-scrollbar-thumb:active {
+  background: var(--green);
+}
+
+/* Firefox has no ::-webkit-scrollbar, so it gets the standard properties. */
+@supports not selector(::-webkit-scrollbar) {
+  .section-inner {
+    scrollbar-width: thin;
+    scrollbar-color: var(--dim) var(--bg);
+  }
+}
+
+.section-body {
+  padding: 1.75rem var(--pad) 1.5rem;
+}
+
+.view[data-phase='closing'] .section-clip {
+  animation: box-close 0.24s ease-in both; /* matches CLOSE_MS in App.jsx */
+}
+
+.view[data-phase='opening'] .section-clip {
+  animation: box-open 0.36s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes box-close {
+  to {
+    grid-template-rows: 0fr;
+  }
+}
+
+@keyframes box-open {
+  from {
+    grid-template-rows: 0fr;
+  }
+}
+
+/* Animations off: the boxes cross-fade in place instead. */
+[data-motion='off'] .view[data-phase] .section-clip {
+  animation: none;
+}
+
+[data-motion='off'] .view[data-phase='closing'] {
+  animation: fade-out 0.24s ease-in both;
+}
+
+[data-motion='off'] .view[data-phase='opening'] {
+  animation: fade-in 0.24s ease-out both;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* A collapsed box folds away completely, title and border included. */
+.section[data-collapsed] {
+  flex-shrink: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  border-color: transparent;
+}
+
+.section[data-collapsed] .section-title {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.section[data-collapsed] .section-clip {
+  grid-template-rows: 0fr;
+}
+
+.section[data-collapsed] .section-inner {
+  overflow-y: hidden;
+}

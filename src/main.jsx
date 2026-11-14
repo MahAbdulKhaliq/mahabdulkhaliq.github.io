@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import '@fontsource-variable/jetbrains-mono'
-import './styles.css'
+import './styles/base.css'
+import './styles/shared.css'
 import App from './App.jsx'
 
 // Easter egg for anyone who opens the developer tools.
