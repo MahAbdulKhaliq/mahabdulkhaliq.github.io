@@ -28,6 +28,33 @@ export const projects = [
     demo: '',
     image: '',
   },
+  {
+    name: 'Hamilton Points of Interest Map (2021)',
+    summary:
+      "An interactive map of Hamilton's accommodations, libraries, waterfalls and tourist spots: 356 places from the City of Hamilton's open data. You can search by name, address or keyword, filter by category, and click a pin for its details. It was first built on Bing Maps and moved to Leaflet and OpenStreetMap when Bing retired its free keys.",
+    stack: ['JavaScript', 'Leaflet', 'OpenStreetMap', 'Bootstrap', 'Open data'],
+    repo: 'https://github.com/MahAbdulKhaliq/hamilton-map',
+    demo: 'https://mahabdulkhaliq.github.io/hamilton-map/',
+    image: './projects/hamilton-map.png',
+  },
+  {
+    name: 'CompSci Squares',
+    summary:
+      'Two-player tic-tac-toe where every square has to be won: pick one, then beat a "celebrity guest" at Rock, Paper, Scissors, Lizard, Spock to claim it, or it goes to your opponent. It is the original Python console program from my coursework, running in the browser through PyScript.',
+    stack: ['Python', 'PyScript'],
+    repo: 'https://github.com/MahAbdulKhaliq/tictactoe-rpsls',
+    demo: 'https://mahabdulkhaliq.github.io/tictactoe-rpsls/',
+    image: './projects/tictactoe-rpsls.png',
+  },
+  {
+    name: 'React Calculators (2021)',
+    summary:
+      'Two small React apps: a grades calculator that groups results by course and shows each one\'s minimum, maximum and average, and a dice roller with any number of dice and sides.',
+    stack: ['React', 'Bootstrap'],
+    repo: 'https://github.com/MahAbdulKhaliq/react-calculators',
+    demo: 'https://mahabdulkhaliq.github.io/react-calculators/',
+    image: './projects/react-calculators.png',
+  },
 ]
 
 // Shown under the project list. Set to '' to hide it.
