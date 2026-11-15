@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { TABS, tabFromHash } from './tabs/index.js'
+import { profile } from './content/profile.js'
 import useMotion from './hooks/useMotion.js'
 import TopBar from './components/TopBar/TopBar.jsx'
 import Footer from './components/Footer/Footer.jsx'
@@ -20,6 +21,12 @@ export default function App() {
   const targetRef = useRef(shown)
   const timer = useRef(0)
   const [motion, toggleMotion] = useMotion()
+
+  // The browser tab reads like a terminal path, e.g. mahmood@portfolio/about.
+  // It follows the last click, so it changes as soon as the URL does.
+  useEffect(() => {
+    document.title = `${profile.firstName.toLowerCase()}@portfolio/${target}`
+  }, [target])
 
   // Once the box has finished opening, mark it open so it can scroll.
   useEffect(() => {
