@@ -64,5 +64,5 @@ export const projects = [
   },
 ]
 
-// Shown under the project list. Set to '' to hide it.
+// Shown at the top of the project list. Set to '' to hide it.
 export const projectsNote = 'More to come...'

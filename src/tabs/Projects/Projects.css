@@ -60,6 +60,14 @@
   display: none;
 }
 
+/* "More to come..." sits at the top, just under the search bar's own dashed
+   line, so the first project needs no second rule below it. */
+.rows > .note:first-child + .row {
+  margin-top: 1.25rem;
+  padding-top: 0;
+  border-top: 0;
+}
+
 .project-year {
   margin-left: 0.4rem;
   color: var(--dim);

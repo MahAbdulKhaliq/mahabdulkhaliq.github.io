@@ -57,6 +57,11 @@ export default function Projects({ tab }) {
       </p>
 
       <ul className="rows">
+        {projectsNote && words.length === 0 && (
+          <li className="row note">
+            <span className="prompt">#</span> {projectsNote}
+          </li>
+        )}
         {shown.map((project) => (
           <li key={project.name} className={project.image ? 'row project has-shot' : 'row project'}>
             {project.image && (
@@ -79,11 +84,6 @@ export default function Projects({ tab }) {
             </div>
           </li>
         ))}
-        {projectsNote && words.length === 0 && (
-          <li className="row note">
-            <span className="prompt">#</span> {projectsNote}
-          </li>
-        )}
       </ul>
     </Section>
   )
