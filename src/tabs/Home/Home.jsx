@@ -4,6 +4,7 @@ import Section from '../../components/Section/Section.jsx'
 import Typer from '../../components/Typer/Typer.jsx'
 import Photo from '../../components/Photo/Photo.jsx'
 import ExternalLink from '../../components/ExternalLink/ExternalLink.jsx'
+import Icon from '../../components/Icon/Icon.jsx'
 import './Home.css'
 
 export default function Home({ tab, motion }) {
@@ -33,7 +34,10 @@ export default function Home({ tab, motion }) {
             <ul className="links">
               {links.map((link) => (
                 <li key={link.label}>
-                  <ExternalLink href={link.href}>{link.label}</ExternalLink>
+                  <ExternalLink href={link.href}>
+                    <Icon name={link.icon} className="link-icon" />
+                    <span>{link.label}</span>
+                  </ExternalLink>
                 </li>
               ))}
             </ul>

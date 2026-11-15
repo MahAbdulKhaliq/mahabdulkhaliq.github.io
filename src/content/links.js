@@ -1,10 +1,10 @@
-// The link row on Home and the Contact tab's list.
+// The link row on Home. `icon` names a shape in components/Icon/Icon.jsx.
 
 export const links = [
-  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mahabdulkhaliq' },
-  { label: 'GitHub', href: 'https://github.com/MahAbdulKhaliq' },
-  { label: 'Resume (PDF)', href: './resume.pdf' }, // built from resume/resume.html
-  { label: 'Email', href: 'mailto:mahabdulkhaliq@gmail.com' },
+  { label: 'LinkedIn', icon: 'linkedin', href: 'https://www.linkedin.com/in/mahabdulkhaliq' },
+  { label: 'GitHub', icon: 'github', href: 'https://github.com/MahAbdulKhaliq' },
+  { label: 'Resume (PDF)', icon: 'file', href: './resume.pdf' }, // built from resume/resume.html
+  { label: 'Email', icon: 'mail', href: 'mailto:mahabdulkhaliq@gmail.com' },
 ]
 
 // The Contact tab lists these written out in full. `note` is optional.

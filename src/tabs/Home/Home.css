@@ -45,6 +45,24 @@
   font-weight: 600;
 }
 
+/* The icon sits before the label; only the label is underlined. */
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.link-icon {
+  flex: none;
+  width: 1.05em;
+  height: 1.05em;
+  color: var(--green);
+}
+
+.links a:hover .link-icon {
+  color: var(--amber);
+}
+
 @media (max-width: 720px) {
   .intro {
     grid-template-columns: minmax(0, 1fr);
