@@ -38,7 +38,7 @@ export const experience = [
 
 // The Experience tab's second box, behind "view skills". From the resume.
 export const skills = [
-  { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS'] },
+  { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS', 'Python', 'Java'] },
   {
     group: 'Backend',
     items: ['.NET 8', 'ASP.NET Core', 'Entity Framework Core', 'REST APIs', 'JSON-RPC', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
@@ -47,6 +47,10 @@ export const skills = [
   { group: 'Data', items: ['PostgreSQL', 'SQL Server', 'BigQuery'] },
   { group: 'Testing', items: ['xUnit', 'Jest', 'React Testing Library', 'Jasmine/Karma', 'Cypress', 'Selenium'] },
   { group: 'Tools', items: ['Git', 'GitLab CI/CD', 'Bitbucket', 'Docker', 'Jira', 'Unleash'] },
+  {
+    group: 'IDEs',
+    items: ['Visual Studio Code', 'Visual Studio', 'JetBrains Rider', 'IntelliJ IDEA', 'Spyder'],
+  },
   {
     group: 'AI',
     items: ['Claude Code (including Agents/Skills)', 'OpenAI Codex', 'OpenCode', 'Oh My Pi harness'],
