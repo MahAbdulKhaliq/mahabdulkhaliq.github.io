@@ -6,6 +6,50 @@
   margin: 0.35rem 0 1rem clamp(1.25rem, 3vw, 2rem);
 }
 
+/* Headings read like prompt lines: "> how I got here". The ">" is decoration,
+   so screen readers skip it. */
+.about .sub::before {
+  content: '> ';
+  content: '> ' / '';
+  color: var(--dim);
+}
+
+.about-group:first-of-type .sub {
+  margin-top: 0;
+}
+
+/* Education sits below a dashed rule, like the gaps between jobs on Experience. */
+.about-education {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--rule);
+}
+
+.about-education .sub {
+  margin-top: 0;
+}
+
+.school {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+}
+
+.school-icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  margin-top: 0.275em; /* centres it on the first line if the text wraps */
+  color: var(--green);
+}
+
+/* Key phrases: bold and a shade brighter than the body text. Not underlined,
+   so they can't be mistaken for links. */
+.about strong {
+  font-weight: 700;
+  color: #f4f7fa;
+}
+
 .about::after {
   content: '';
   display: block;

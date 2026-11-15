@@ -19,6 +19,12 @@ const ICONS = {
       <path d="M14 2v6h6M8 13h8M8 17h8" />
     </g>
   ),
+  cap: (
+    <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M22 10 12 5 2 10l10 5 10-5z" />
+      <path d="M6 12v5c3 3 9 3 12 0v-5M22 10v6" />
+    </g>
+  ),
   mail: (
     <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="4" width="20" height="16" rx="2" />
