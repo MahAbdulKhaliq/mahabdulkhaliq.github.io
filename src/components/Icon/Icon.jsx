@@ -25,6 +25,12 @@ const ICONS = {
       <path d="M6 12v5c3 3 9 3 12 0v-5M22 10v6" />
     </g>
   ),
+  phone: (
+    <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="6" y="2" width="12" height="20" rx="2" />
+      <path d="M11 18h2" />
+    </g>
+  ),
   mail: (
     <g fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect x="2" y="4" width="20" height="16" rx="2" />

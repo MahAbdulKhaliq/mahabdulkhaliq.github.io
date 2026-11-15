@@ -1,4 +1,53 @@
+/* "> contact", styled like the About me headings. The ">" is decoration. */
+.contact-heading {
+  margin-top: 1.75rem;
+}
+
+.contact-heading::before {
+  content: '> ';
+  content: '> ' / '';
+  color: var(--dim);
+}
+
+/* Each way to reach me on one line: icon, label, then the address. */
 .contact-list {
-  margin-top: 1rem;
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.contact-icon {
+  flex: none;
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--green);
+}
+
+/* A fixed width lines the addresses up in a column, like `ls -l`. */
+.contact-label {
+  flex: none;
+  width: 9ch;
+  color: var(--dim);
+}
+
+/* On a phone the addresses need the room; the icons still say which is which. */
+@media (max-width: 720px) {
+  .contact-label {
+    display: none;
+  }
+}
+
+.contact-item a {
+  min-width: 0;
   overflow-wrap: anywhere;
+}
+
+.contact-item:hover .contact-icon {
+  color: var(--amber);
 }
