@@ -1,7 +1,7 @@
 # Portfolio website
 
 Personal portfolio site built with React and Vite.
-Visit it publically at https://mahabdulkhaliq.github.io/.
+Visit it publicly at https://mahabdulkhaliq.github.io/.
 
 ![The portfolio's front page: a terminal-styled Home tab with the name, the line "full-stack developer" and a short introduction](public/projects/portfolio.png)
 
@@ -26,8 +26,10 @@ is `public/resume.pdf`, built from `resume/resume.html` by running `resume\build
 
 ## Deploy
 
-`npm run build` writes a static site to `dist/`. Any static host works:
+Every push to `main` deploys the site to GitHub Pages.
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) runs `npm ci` and
+`npm run build`, then publishes `dist/`. The repo's Pages source must be set to
+**GitHub Actions** (Settings > Pages). A deploy can also be started by hand from the
+Actions tab.
 
-- **Vercel or Netlify**: import the GitHub repo; build command `npm run build`, output `dist`.
-- **GitHub Pages**: publish `dist/` with a Pages workflow. Asset paths are relative, so it
-  works at `username.github.io/repo` without extra config.
+To check a production build locally, run `npm run build` and then `npm run preview`.
