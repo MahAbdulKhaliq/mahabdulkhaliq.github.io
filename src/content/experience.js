@@ -38,13 +38,13 @@ export const experience = [
 
 // The Experience tab's second box, behind "view skills". From the resume.
 export const skills = [
-  { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS', 'Python', 'Java'] },
+  { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS', 'Python', 'Java', 'PHP'] },
   {
     group: 'Backend',
-    items: ['.NET 8', 'ASP.NET Core', 'Entity Framework Core', 'REST APIs', 'JSON-RPC', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
+    items: ['.NET 8', 'ASP.NET Core (MVC, Razor, Identity)', 'Node.js', 'Entity Framework Core', 'REST APIs', 'Swagger/OpenAPI', 'JSON-RPC', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
   },
-  { group: 'Frontend', items: ['React', 'Angular', 'RxJS', 'React Hook Form', 'Angular Material', 'Vue.js'] },
-  { group: 'Data', items: ['PostgreSQL', 'SQL Server', 'BigQuery'] },
+  { group: 'Frontend', items: ['React', 'Angular', 'RxJS', 'React Hook Form', 'Angular Material', 'Vue.js', 'Bootstrap'] },
+  { group: 'Data', items: ['PostgreSQL', 'SQL Server', 'MySQL', 'BigQuery'] },
   { group: 'Testing', items: ['xUnit', 'Jest', 'React Testing Library', 'Jasmine/Karma', 'Cypress', 'Selenium'] },
   { group: 'Tools', items: ['Git', 'GitLab CI/CD', 'Bitbucket', 'Docker', 'Jira', 'Unleash'] },
   {
