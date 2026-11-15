@@ -28,8 +28,10 @@ export const experience = [
     company: 'Auto Key Pro',
     dates: 'Jul 2021 to Sep 2021',
     points: [
-      'Built Zapier automations connecting Google Calendar, Drive and Sheets to the day-to-day work: messaging customers when appointments were scheduled, notifying the assigned technicians, and logging jobs to Google Sheets.',
-      'Maintained the company’s WordPress site and its in-house PHP plugin, keeping its data and security updates current.',
+      'Built Zapier automations connecting Google Calendar, Drive and Sheets and RingCentral’s messaging API to the day-to-day work: texting customers when appointments were scheduled, alerting the assigned technicians, and logging jobs to Google Sheets.',
+      'Maintained the company’s WordPress site and its distributed in-house plugins (PHP and JavaScript), keeping their API integrations, data and security updates current, and fixed problems reported by customers or found in testing.',
+      'Started an internal mapping side project with a Vue.js front end and the Google Maps and Places APIs.',
+      'Set up the company’s Git repository on Bitbucket, managed file backups between local storage and the cloud, and provided on-call support.',
     ],
   },
 ]
@@ -39,11 +41,14 @@ export const skills = [
   { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS'] },
   {
     group: 'Backend',
-    items: ['.NET 8', 'ASP.NET Core', 'Entity Framework Core', 'REST APIs', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
+    items: ['.NET 8', 'ASP.NET Core', 'Entity Framework Core', 'REST APIs', 'JSON-RPC', 'Hangfire', 'Polly', 'async/TPL', 'Protocol Buffers'],
   },
-  { group: 'Frontend', items: ['React', 'Angular', 'RxJS', 'React Hook Form', 'Angular Material'] },
+  { group: 'Frontend', items: ['React', 'Angular', 'RxJS', 'React Hook Form', 'Angular Material', 'Vue.js'] },
   { group: 'Data', items: ['PostgreSQL', 'SQL Server', 'BigQuery'] },
-  { group: 'Testing', items: ['xUnit', 'Jest', 'React Testing Library', 'Cypress', 'Selenium'] },
-  { group: 'Tools', items: ['Git', 'GitLab CI/CD', 'Docker', 'Jira', 'Unleash'] },
-  { group: 'AI', items: ['Claude Code', 'OpenAI Codex', 'OpenCode'] },
+  { group: 'Testing', items: ['xUnit', 'Jest', 'React Testing Library', 'Jasmine/Karma', 'Cypress', 'Selenium'] },
+  { group: 'Tools', items: ['Git', 'GitLab CI/CD', 'Bitbucket', 'Docker', 'Jira', 'Unleash'] },
+  {
+    group: 'AI',
+    items: ['Claude Code (including Agents/Skills)', 'OpenAI Codex', 'OpenCode', 'Oh My Pi harness'],
+  },
 ]
