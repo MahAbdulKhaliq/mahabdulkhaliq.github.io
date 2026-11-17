@@ -46,4 +46,5 @@ Build from this list. Tick an item only when its "Done when" has been checked. C
 - [x] Typed command on opening a tab with animations on; complete at once with them off.
 - [x] Sizes: 1280x800, 375x812, 320x640 with no sideways overflow; Home fits without scrolling at 1280x800 and 375x812.
 - [x] `CLAUDE.md`, `PRODUCT.md`, the "This website" summary and its screenshot match the new structure.
-- [ ] Independent QA of revision 2.
+- [x] Independent QA of revision 2.
+  QA ran on 99770c0 (pass with issues). Fixed and rechecked: the skip link switching to Home, keyboard scrolling of the window, << >> going stale when the font loads, a focused << >> becoming disabled, a stale comment. Left open for the owner: output hidden for up to a second while the command types (as designed), the footer growing a line on a phone when a joke wraps, heading order.

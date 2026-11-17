@@ -35,7 +35,6 @@ export default function Section({ tab, children }) {
   return (
     <section
       id={tab.id}
-      tabIndex={-1}
       className="block"
       data-state={done ? 'done' : 'typing'}
       aria-labelledby={`${tab.id}-title`}
@@ -46,7 +45,8 @@ export default function Section({ tab, children }) {
           {!done && <span className="cursor" />}
         </span>
       </h2>
-      <div className="out-scroll">
+      {/* Focusable so the keyboard can scroll it, also on tabs with no links. */}
+      <div className="out-scroll" tabIndex={0} role="group" aria-labelledby={`${tab.id}-title`}>
         <div className="out">{children}</div>
       </div>
     </section>

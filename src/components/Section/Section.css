@@ -7,11 +7,6 @@
   height: 100%;
 }
 
-/* A tab switch moves keyboard focus here; it needs no ring of its own. */
-.block:focus {
-  outline: none;
-}
-
 /* The command line. One line tall even before anything is typed. */
 .cmd {
   flex: none;
@@ -34,6 +29,11 @@
   overscroll-behavior: contain;
   /* A focused link scrolls clear of the window's edges. */
   scroll-padding: var(--space-6) 0;
+}
+
+/* The focus ring sits just inside the window border. */
+.out-scroll:focus-visible {
+  outline-offset: -2px;
 }
 
 /* Terminal-style scrollbar: a square thumb in a thin ruled track. */

@@ -6,6 +6,12 @@ import TopBar from './components/TopBar/TopBar.jsx'
 import PromptBar from './components/PromptBar/PromptBar.jsx'
 import Footer from './components/Footer/Footer.jsx'
 
+// Puts keyboard focus on the open tab's output, which is the part that
+// scrolls, so the arrow keys and Page Down work straight away.
+function focusOutput() {
+  document.querySelector('.out-scroll')?.focus()
+}
+
 // The page is one terminal window, exactly one screen tall. The host line
 // and the animations toggle stay at the top, the footer line and the prompt
 // line stay at the bottom, and the window between them shows one tab at a
@@ -32,13 +38,13 @@ export default function App() {
   }, [current])
 
   // After a switch, keyboard and screen-reader users carry on from the new
-  // tab rather than from the prompt line.
+  // tab rather than from the prompt line. Not on first load.
   useEffect(() => {
     if (firstRender.current) {
       firstRender.current = false
       return
     }
-    document.getElementById(current)?.focus()
+    focusOutput()
   }, [current])
 
   function go(id) {
@@ -53,13 +59,21 @@ export default function App() {
   return (
     <MotionContext.Provider value={motion}>
       <div className="page" data-motion={motion ? 'on' : 'off'}>
-        <a className="skip" href="#content">
+        <a
+          className="skip"
+          href="#content"
+          onClick={(event) => {
+            // Stays on the open tab; following the link would change the hash.
+            event.preventDefault()
+            focusOutput()
+          }}
+        >
           Skip to content
         </a>
 
         <TopBar motion={motion} onToggleMotion={toggleMotion} />
 
-        <main id="content" className="window" tabIndex={-1}>
+        <main id="content" className="window">
           <tab.Panel key={tab.id} tab={tab} motion={motion} />
         </main>
 

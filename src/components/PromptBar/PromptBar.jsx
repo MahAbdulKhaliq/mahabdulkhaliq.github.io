@@ -4,7 +4,8 @@ import './PromptBar.css'
 // The prompt line at the bottom of the window. Each tab's command is a
 // shortcut that opens it; the open one is shown inverted. The resume link
 // sits at the end. When the row is too narrow to show every shortcut, `<<`
-// and `>>` appear at its ends and move through them.
+// and `>>` appear at its ends and move through them. At either end the
+// button with nothing further is marked disabled but keeps keyboard focus.
 export default function PromptBar({ tabs, current, onPick, motion }) {
   const row = useRef(null)
   // Whether there are shortcuts hidden past the left and right ends.
@@ -19,8 +20,11 @@ export default function PromptBar({ tabs, current, onPick, motion }) {
     }
     measure()
     scroller.addEventListener('scroll', measure, { passive: true })
+    // The row's own width and the width of what is in it, which changes when
+    // the web font arrives.
     const sizes = new ResizeObserver(measure)
     sizes.observe(scroller)
+    for (const child of scroller.children) sizes.observe(child)
     return () => {
       scroller.removeEventListener('scroll', measure)
       sizes.disconnect()
@@ -55,7 +59,7 @@ export default function PromptBar({ tabs, current, onPick, motion }) {
           type="button"
           className="promptbar-more"
           aria-label="Show earlier sections"
-          disabled={!more.left}
+          aria-disabled={!more.left}
           onClick={() => page(-1)}
         >
           &lt;&lt;
@@ -86,7 +90,7 @@ export default function PromptBar({ tabs, current, onPick, motion }) {
           type="button"
           className="promptbar-more"
           aria-label="Show later sections"
-          disabled={!more.right}
+          aria-disabled={!more.right}
           onClick={() => page(1)}
         >
           &gt;&gt;

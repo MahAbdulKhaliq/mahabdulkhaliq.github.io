@@ -7,10 +7,10 @@ import SkillsTab from './Experience/SkillsTab.jsx'
 import Outside from './Outside/Outside.jsx'
 import Contact from './Contact/Contact.jsx'
 
-// The sections of the session, in the order they appear on the page. `id` is
-// the URL hash, `command` is the line that heads the section, `short` is its
-// shortcut on the pinned prompt line, `label` is the plain name screen
-// readers get, and `Panel` draws the section.
+// The tabs, in the order of their shortcuts on the prompt line. `id` is the
+// URL hash, `command` is the line that heads the tab, `short` is its
+// shortcut, `label` is the plain name screen readers get, and `Panel` draws
+// the tab.
 export const TABS = [
   { id: 'home', label: 'Home', short: 'whoami', command: 'whoami', Panel: Home },
   { id: 'about', label: 'About me', short: 'about', command: 'cat about-me.md', Panel: About },

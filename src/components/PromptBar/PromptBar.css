@@ -87,7 +87,7 @@
 }
 
 /* Nothing further that way. */
-.promptbar-more:disabled {
+.promptbar-more[aria-disabled='true'] {
   color: var(--rule);
   cursor: default;
 }
