@@ -32,5 +32,5 @@ Build from this list. Tick an item only when its "Done when" has been checked.
 - [x] Build and visual check.
   **Done when:** `npm run build` passes; every tab is checked at 1280x800, 1366x768, 1440x900 and 375x812; the phone checks from 57ba4ef still hold (bar about 48px, Home links on the first screen at 375x812, tap targets about 44px); the in-browser detector no longer reports a flat type hierarchy on About, Experience, Projects and Contact.
   Note: the detector was rerun on About and Experience only (both clean); Projects and Contact were not rerun. 1440x900 was checked on Home only. Phone titles use 1.125rem (see DESIGN.md).
-- [ ] Independent QA against `docs/plan/QA.md`.
+- [ ] Independent QA against `docs/plan/QA.md`. Skipped on 2026-11-16 at the owner's request, because a larger redesign is planned next.
   **Done when:** the qa-reviewer report has no open gaps, or each gap is fixed and rechecked.
