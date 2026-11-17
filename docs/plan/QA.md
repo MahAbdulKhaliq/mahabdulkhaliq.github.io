@@ -1,55 +1,54 @@
-# QA guide: typeset and layout pass
+# QA guide: one terminal session redesign
 
-Verify the work on the `design-pass` branch against `docs/plan/DESIGN.md`. Report every gap; do not fix anything.
+Verify the `redesign` branch against `docs/plan/DESIGN.md` and `PRODUCT.md`. Report every gap; do not fix anything.
 
 ## Setup
 
 - Windows with Node; no Python and no jq. Use `node -e` for scripting.
 - `npm run build` must pass (there are no tests and no linter).
-- The baseline for comparison is commit `57ba4ef` (`git diff 57ba4ef -- src`).
-- For rendered checks, a dev server may already be running at http://localhost:5174. If the browser tools are not available, do the source checks and mark rendered checks "not run".
+- Baseline for comparison: commit `713cc1e` (`git diff 713cc1e -- src`).
+- Rendered checks need a browser on the dev server (`npm run dev`). Without one, do the source checks and mark rendered checks "not run".
 
 ## Source checks
 
 | # | Requirement | How to check |
 |---|---|---|
 | S1 | Build passes | `npm run build` exits 0 |
-| S2 | No new colours | `git diff 57ba4ef -- src` adds no hex, rgb or hsl colour; the six tokens in `base.css` are unchanged |
-| S3 | Off-token bold colour removed | `#f4f7fa` does not appear in `src` |
-| S4 | Type variables exist | `base.css` defines `--fs-small: 0.875rem`, `--fs-body: 1rem`, `--fs-title: 1.25rem`, `--measure: 70ch` |
-| S5 | Old sizes gone | no `font-size: 0.85rem`, `0.9rem` or `1.05rem` in `src` |
-| S6 | Spacing variables exist and are used | `base.css` defines `--space-1`, `-2`, `-3`, `-4`, `-6`, `-8`; component CSS references them |
-| S7 | Page cap | `.page` has `max-width: 62rem` |
-| S8 | No copy changes | `git diff 57ba4ef -- src/content` is empty |
-| S9 | Phone rules kept | the `max-width: 720px` blocks added in 57ba4ef in `TopBar.css`, `Home.css`, `Typer.css` and `Contact.css` still exist with the same behaviour (swipe row, 44px hit areas, thumbnail portrait, wrapping tagline) |
-| S10 | Typer and footer egg untouched | `git diff 57ba4ef -- src/components/Typer/Typer.jsx src/components/Footer` shows no behaviour change |
-| S11 | Motion timings untouched | `CLOSE_MS` in `App.jsx` and `SWITCH_MS` in `ExperienceTab.jsx` still match the CSS durations (0.24s and 0.34s) |
-| S12 | Toggle still in top bar | `TopBar.jsx` still renders the `.motion-toggle` button |
+| S2 | No new colours | `git diff 713cc1e -- src` adds no hex, rgb or hsl colour; the six tokens in `base.css` are unchanged |
+| S3 | No copy changes | `git diff 713cc1e -- src/content` is empty |
+| S4 | No new dependencies | `git diff 713cc1e -- package.json` is empty |
+| S5 | Seven sections in order | `src/tabs/index.js` lists home, about, projects, experience, skills, outside, contact with the commands in DESIGN.md |
+| S6 | Tab machinery removed | no `CLOSE_MS`, `OPEN_MS`, `SWITCH_MS`, `data-phase` or `box-toggle` left in `src` |
+| S7 | Typer and footer egg untouched | `git diff 713cc1e -- src/components/Typer src/components/Footer/FooterLine.jsx` shows no behaviour change |
+| S8 | Motion off shows everything | the block component renders the full command and visible output when motion is off, with no dependence on IntersectionObserver |
+| S9 | Reduced motion respected | `useMotion` still follows `prefers-reduced-motion` until the visitor toggles |
+| S10 | Resume shortcut | the prompt bar links to `./resume.pdf` |
+| S11 | Accessibility basics | skip link still present; each section has a heading with an accessible name; the prompt bar is a `nav` with a label; the toggle has `aria-pressed` |
+| S12 | CLAUDE.md is current | the project `CLAUDE.md` describes the session structure and no longer describes tab phases or timing constants that do not exist |
+| S13 | No banned effects | no scanline, glow or boot-sequence code; nothing requires keyboard typing to reach content |
 
 ## Rendered checks
 
-Check at 1280x800 unless stated.
-
 | # | Requirement | How to check |
 |---|---|---|
-| R1 | Top bar is one row | `.bar` height under 56px; host, six tabs and toggle on one line |
-| R2 | Home has no inner scrollbar | on Home, `.section-inner` `scrollHeight <= clientHeight` at 1280x800 and 1366x768 |
-| R3 | Title role | a job title (`#experience`), a project name (`#projects`) and an About heading compute to `font-size: 20px` |
-| R4 | Small role | dates, stack lists, top bar and footer compute to 14px |
-| R5 | Line length | About paragraphs and Experience bullets are at most 70ch wide (width divided by 0.6 times the font size) |
-| R6 | Experience dates | dates sit on the title row, right-aligned, at 1280x800; below the title at 375x812 |
-| R7 | Title fade | on About, scroll down: no readable text beside the `$ cat about-me.md` title |
-| R8 | Phone still holds | at 375x812: `.bar` about 48px tall; Home's four links visible without scrolling; nav links, toggle and contact links have about 44px hit height; LinkedIn address on one line |
-| R9 | Typed tagline | with animations on, the tagline types and erases; at 375px a long phrase wraps to a second line without moving content below |
-| R10 | Footer egg | with animations on, the footer line still types its extra phrase after about 20 seconds |
-| R11 | Tab switching | every tab opens and closes without layout jumps, with animations on and off; the Experience and Skills toggles still work |
+| R1 | One scrolling page | at 1280x800 the document scrolls; no inner scrollbars |
+| R2 | First screen | on load at 1280x800 and 375x812 only the `whoami` output shows above the pinned bar, including the four links |
+| R3 | Prompt line | stays fixed while scrolling; clicking a shortcut scrolls to its section and sets the hash; the current shortcut is highlighted |
+| R4 | Hash on load | `/#experience` and `/#contact` land on those sections |
+| R5 | Typed commands | animations on: a section types its command when first scrolled to, then shows output, and the page height does not change; animations off: everything visible at once |
+| R6 | Experience log | dates in a left column at 1280x800; stacked at 375x812 |
+| R7 | Projects | screenshots at least 320px wide at 1280x800 and linked to demos; search, sort and the no-match message work |
+| R8 | Phone | at 375x812 the shortcuts are one swipe row; shortcuts and toggle have about 44px tap height; no sideways page overflow at 375 or 320 |
+| R9 | End of page | scrolled to the bottom, the footer line is fully visible above the pinned bar |
+| R10 | Typed tagline and footer egg | tagline types and erases; the footer line types an extra phrase after about 20 seconds |
+| R11 | Keyboard | Tab reaches the skip link, the content links and the prompt bar; focus is always visible |
 
 ## Edge cases
 
-- 1440x900 and 1024x768: no overlapping or clipped text; the bar may wrap below about 1010px wide, which is accepted.
-- 320x640: nothing overflows sideways.
-- A project search with no match (`rust`) still shows its message.
-- Browser zoom at 200% on desktop: text stays readable and nothing overlaps.
+- Toggle animations off while a command is mid-typing: the full command and output appear.
+- Load with a hash for a section far down while animations are on: the target section is readable without scrolling up first.
+- A missing project image: the text column still lays out.
+- Browser zoom at 200% on desktop: the prompt bar does not cover the content being read.
 
 ## Results
 
@@ -67,6 +66,7 @@ Check at 1280x800 unless stated.
 | S10 | | |
 | S11 | | |
 | S12 | | |
+| S13 | | |
 | R1 | | |
 | R2 | | |
 | R3 | | |

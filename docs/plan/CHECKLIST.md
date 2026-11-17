@@ -1,36 +1,35 @@
-# Checklist: typeset and layout pass
+# Checklist: one terminal session redesign
 
-Build from this list. Tick an item only when its "Done when" has been checked.
+Build from this list. Tick an item only when its "Done when" has been checked. Commit after each phase.
 
-## Phase 1: tokens and page width
+## Phase 1: session shell
 
-- [x] Add `--fs-*`, `--space-*` and `--measure` variables; page cap 62rem. Files: `src/styles/base.css`.
-  **Done when:** `npm run build` passes and the variables resolve in the browser (`getComputedStyle(document.documentElement).getPropertyValue('--fs-title')` returns `1.25rem`).
+- [x] Every section on one scrolling page, in order, with `skills` as its own section. Files: `src/App.jsx`, `src/tabs/index.js`, `src/tabs/Experience/*`, `src/components/Section/*`, `src/styles/base.css`.
+  **Done when:** `npm run build` passes; the page has seven `section` elements with ids home, about, projects, experience, skills, outside, contact in that order; the document scrolls and no element has an inner scrollbar.
+- [x] Pinned prompt line with shortcuts, resume link and animations toggle. Files: `src/components/PromptBar/*` (new), `src/components/TopBar/*`.
+  **Done when:** the bar stays at the bottom while scrolling; clicking `projects` scrolls that section to the top and the URL ends in `#projects`; the shortcut for the section on screen has `aria-current`; `resume` points at `./resume.pdf`.
+- [x] Hash links and title. Files: `src/App.jsx`.
+  **Done when:** loading `/#experience` lands on that section; the tab title reads `mahmood@portfolio/experience` there.
+- [x] Footer line is the last line of the page. Files: `src/components/Footer/*`.
+  **Done when:** it sits after Contact and clears the pinned bar when scrolled to the end.
 
-## Phase 2: typography
+## Phase 2: typed commands
 
-- [x] Apply the three size roles. Files: `shared.css`, `Home.css`, `TopBar.css`, `Footer.css`, `Outside.css`, `Projects.css`, `Contact.css`.
-  **Done when:** at 1280x800 a job title, a project name and an About heading compute to 20px; dates, stack lists, top bar and footer compute to 14px; no `font-size: 0.85rem`, `0.9rem` or `1.05rem` remains in `src`.
-- [x] Cap line length and set wrapping. Files: `shared.css`, `base.css`.
-  **Done when:** About paragraphs and Experience bullets measure 70ch or less at 1280x800, and the typed tagline and footer line do not use `text-wrap: pretty`.
-- [x] About bold uses the token. Files: `About.css`.
-  **Done when:** `#f4f7fa` no longer appears in `src`.
+- [x] Commands type on first view, output follows. Files: `src/components/Section/*`, `src/hooks/useMotion.js`.
+  **Done when:** with animations on, a section below the fold shows an empty prompt until scrolled to, then types its command and shows its output; with animations off, all seven commands and outputs are visible immediately; toggling animations off mid-way reveals everything; page height does not change as sections reveal.
 
-## Phase 3: layout
+## Phase 3: output formats
 
-- [x] Top bar on one row. Files: `TopBar.css`, `base.css`.
-  **Done when:** at 1280x800 the `.bar` is under 56px tall and the host, six tabs and toggle share one line.
-- [x] Home without a scrollbar. Files: `Home.css`.
-  **Done when:** on Home, `.section-inner` has `scrollHeight <= clientHeight` at 1280x800 and at 1366x768.
-- [x] Experience dates on the title line. Files: `Experience.jsx`, `ExperienceTab.css`.
-  **Done when:** at 1280x800 each job's dates share a baseline row with its title, right-aligned; at 375x812 they sit below the title.
-- [x] Snap spacing to the scale and lower the title fade. Files: all component CSS, `Section.css`.
-  **Done when:** desktop rules in `src` use `var(--space-*)` for the snapped values, and on About scrolled text is fully faded where it passes the box title.
+- [x] `whoami` fills the first screen. Files: `src/tabs/Home/*`.
+  **Done when:** at 1280x800 and 375x812 the next command line is not visible above the pinned bar on load, and the four links are.
+- [x] Experience as a log. Files: `src/tabs/Experience/*`.
+  **Done when:** at 1280x800 each job's dates sit in a left column beside its title and bullets; at 375x812 they stack.
+- [x] Projects with larger linked screenshots. Files: `src/tabs/Projects/*`.
+  **Done when:** at 1280x800 screenshots are at least 320px wide and each one with a demo is a link to it; search and sort still work, including a no-match search.
 
-## Phase 4: verify
+## Phase 4: verify and document
 
-- [x] Build and visual check.
-  **Done when:** `npm run build` passes; every tab is checked at 1280x800, 1366x768, 1440x900 and 375x812; the phone checks from 57ba4ef still hold (bar about 48px, Home links on the first screen at 375x812, tap targets about 44px); the in-browser detector no longer reports a flat type hierarchy on About, Experience, Projects and Contact.
-  Note: the detector was rerun on About and Experience only (both clean); Projects and Contact were not rerun. 1440x900 was checked on Home only. Phone titles use 1.125rem (see DESIGN.md).
-- [ ] Independent QA against `docs/plan/QA.md`. Skipped on 2026-11-16 at the owner's request, because a larger redesign is planned next.
-  **Done when:** the qa-reviewer report has no open gaps, or each gap is fixed and rechecked.
+- [ ] Sizes. **Done when:** every section is checked at 1280x800, 1440x900, 375x812 and 320x640 with no sideways overflow, no text under the pinned bar at the end of the page, and 44px tap areas on phone shortcuts.
+- [ ] Typed tagline and footer egg still work with animations on.
+- [ ] Project `CLAUDE.md` architecture section matches the new structure.
+- [ ] Independent QA against `docs/plan/QA.md`. **Done when:** the qa-reviewer report has no open gaps, or each gap is fixed and rechecked.

@@ -12,6 +12,7 @@
   --fs-small: 0.875rem; /* dates, stack lists, top bar, footer */
   --fs-body: 1rem;
   --fs-title: 1.25rem;  /* job titles, project names, headings */
+  --fs-command: 1.5rem; /* the command line that heads each section */
 
   /* Spacing steps. */
   --space-1: 0.25rem;
@@ -32,6 +33,7 @@
 @media (max-width: 720px) {
   :root {
     --fs-title: 1.125rem;
+    --fs-command: 1.25rem;
   }
 }
 
@@ -90,29 +92,17 @@ ol {
   list-style: none;
 }
 
-/* The page is exactly one screen tall: top bar, the tab's box, footer. The
-   box takes whatever height is left and scrolls inside itself, so the bar and
-   footer are always on screen. dvh follows a phone's collapsing address bar. */
+/* The page is one column that scrolls: the host line, every section of the
+   session, then the footer line. The bottom padding keeps the last line clear
+   of the prompt line pinned to the bottom of the screen. */
 .page {
-  display: flex;
-  flex-direction: column;
-  max-width: 62rem; /* wide enough for the top bar to sit on one row */
-  height: 100vh;
-  height: 100dvh;
+  max-width: 62rem;
   margin: 0 auto;
-  padding: 0 var(--gutter);
-}
-
-main,
-.view,
-.section {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
+  padding: 0 var(--gutter) 5rem;
 }
 
 main {
-  flex: 1 1 0;
+  padding-top: var(--space-8);
 }
 
 main:focus {

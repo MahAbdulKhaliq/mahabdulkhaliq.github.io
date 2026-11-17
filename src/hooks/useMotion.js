@@ -1,4 +1,7 @@
-import { useState } from 'react'
+import { createContext, useState } from 'react'
+
+// Whether animations are on, for components that are not handed it as a prop.
+export const MotionContext = createContext(false)
 
 // Animations follow the visitor's system setting until they use the toggle.
 function initialMotion() {

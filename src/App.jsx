@@ -1,97 +1,105 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { TABS, tabFromHash } from './tabs/index.js'
 import { profile } from './content/profile.js'
-import useMotion from './hooks/useMotion.js'
+import useMotion, { MotionContext } from './hooks/useMotion.js'
 import TopBar from './components/TopBar/TopBar.jsx'
+import PromptBar from './components/PromptBar/PromptBar.jsx'
 import Footer from './components/Footer/Footer.jsx'
 
-// Keep in step with the box-close animation in components/Section/Section.css.
-const CLOSE_MS = 240
-// A little longer than box-open, after which the box may show its scrollbar.
-const OPEN_MS = 400
+// Scrolls to a section; `home` is the top of the page.
+function scrollToSection(id, smooth) {
+  const behavior = smooth ? 'smooth' : 'auto'
+  const target = id === 'home' ? null : document.getElementById(id)
+  if (target) target.scrollIntoView({ behavior, block: 'start' })
+  else window.scrollTo({ top: 0, behavior })
+}
 
-// The page shell: top bar, the open tab's box, footer. It also runs the tab
-// switch, closing the old box before the new one opens.
+// The page is one terminal session: every section, in order, as a command and
+// its output. This shell tracks which section is on screen, keeps the URL
+// hash and the browser tab title in step, and draws the pinned prompt line.
 export default function App() {
-  // `shown` is the tab on screen. `target` is where the last click is heading,
-  // which differs from `shown` while the old panel is still closing.
-  const [shown, setShown] = useState(tabFromHash)
-  const [target, setTarget] = useState(shown)
-  const [phase, setPhase] = useState('opening')
-  const targetRef = useRef(shown)
-  const timer = useRef(0)
   const [motion, toggleMotion] = useMotion()
+  // The section currently on screen.
+  const [current, setCurrent] = useState(tabFromHash)
 
   // The browser tab reads like a terminal path, e.g. mahmood@portfolio/about.
-  // It follows the last click, so it changes as soon as the URL does.
   useEffect(() => {
-    document.title = `${profile.firstName.toLowerCase()}@portfolio/${target}`
-  }, [target])
+    document.title = `${profile.firstName.toLowerCase()}@portfolio/${current}`
+  }, [current])
 
-  // Once the box has finished opening, mark it open so it can scroll.
+  // A link such as /#projects opens at that section. Back and forward move
+  // between the sections visited through the prompt line.
   useEffect(() => {
-    if (phase !== 'opening') return undefined
-    const done = window.setTimeout(() => setPhase('open'), OPEN_MS)
-    return () => window.clearTimeout(done)
-  }, [phase, shown])
+    const jump = () => scrollToSection(tabFromHash(), false)
+    if (tabFromHash() !== 'home') jump()
+    window.addEventListener('popstate', jump)
+    return () => window.removeEventListener('popstate', jump)
+  }, [])
 
-  function go(id, { push = true } = {}) {
-    if (id === targetRef.current) return
-    targetRef.current = id
-    setTarget(id)
+  // The current section is the last one whose command line has passed the
+  // upper third of the screen; at the very end of the page it is the last one.
+  useEffect(() => {
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const line = window.innerHeight * 0.35
+      let id = TABS[0].id
+      for (const tab of TABS) {
+        const section = document.getElementById(tab.id)
+        if (section && section.getBoundingClientRect().top <= line) id = tab.id
+      }
+      const page = document.documentElement
+      if (window.innerHeight + window.scrollY >= page.scrollHeight - 2 && window.scrollY > 0) {
+        id = TABS.at(-1).id
+      }
+      setCurrent(id)
+    }
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update)
+    }
+    update()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
 
-    if (push) {
+  function go(id) {
+    if (id !== tabFromHash()) {
       const url = id === 'home' ? window.location.pathname + window.location.search : `#${id}`
       window.history.pushState(null, '', url)
     }
-
-    const swap = () => {
-      setShown(id)
-      setPhase('opening')
-      window.scrollTo(0, 0)
-    }
-
-    window.clearTimeout(timer.current)
-    setPhase('closing')
-    timer.current = window.setTimeout(swap, CLOSE_MS)
+    scrollToSection(id, motion)
   }
 
-  // Back and forward buttons move between tabs.
-  useEffect(() => {
-    const onPop = () => go(tabFromHash(), { push: false })
-    window.addEventListener('popstate', onPop)
-    return () => {
-      window.removeEventListener('popstate', onPop)
-      window.clearTimeout(timer.current)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const tab = TABS.find((item) => item.id === shown)
-  const { Panel } = tab
-
   return (
-    <div className="page" data-motion={motion ? 'on' : 'off'}>
-      <a className="skip" href="#content">
-        Skip to content
-      </a>
+    <MotionContext.Provider value={motion}>
+      <div className="page" data-motion={motion ? 'on' : 'off'}>
+        <a className="skip" href="#content">
+          Skip to content
+        </a>
 
-      <TopBar
-        tabs={TABS}
-        current={target}
-        onPick={go}
-        motion={motion}
-        onToggleMotion={toggleMotion}
-      />
+        <TopBar />
 
-      <main id="content" tabIndex={-1}>
-        {/* The key remounts the view for each tab, which replays the open animation. */}
-        <div key={shown} className="view" data-phase={phase}>
-          <Panel tab={tab} motion={motion} />
-        </div>
-      </main>
+        <main id="content" tabIndex={-1}>
+          {TABS.map((tab) => (
+            <tab.Panel key={tab.id} tab={tab} motion={motion} />
+          ))}
+        </main>
 
-      <Footer motion={motion} />
-    </div>
+        <Footer motion={motion} />
+
+        <PromptBar
+          tabs={TABS}
+          current={current}
+          onPick={go}
+          motion={motion}
+          onToggleMotion={toggleMotion}
+        />
+      </div>
+    </MotionContext.Provider>
   )
 }

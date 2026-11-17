@@ -1,5 +1,5 @@
 .footer {
-  flex: none;
+  margin-top: clamp(3.5rem, 9vh, 5.5rem);
   border-top: 1px solid var(--rule);
   padding: var(--space-3) 0 var(--space-4);
   color: var(--dim);
