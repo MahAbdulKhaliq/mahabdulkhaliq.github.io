@@ -7,7 +7,7 @@ export const links = [
   { label: 'Email', icon: 'mail', href: 'mailto:mahabdulkhaliq@gmail.com' },
 ]
 
-// The Contact tab: the line above the list, then each way to reach me written
+// The Contact section: the line above the list, then each way to reach me written
 // out in full. `icon` names a shape in components/Icon/Icon.jsx.
 export const contactIntro =
   'I’m open to full-stack, back-end and front-end roles. The quickest way to reach me is by email or a message on LinkedIn; I’m happy to hear from you on either.'

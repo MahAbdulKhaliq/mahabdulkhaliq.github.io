@@ -1,4 +1,4 @@
-// The Experience tab: jobs, and the skills box behind "view skills".
+// The Experience and Skills sections: jobs, then skills.
 
 export const experience = [
   {
@@ -36,7 +36,7 @@ export const experience = [
   },
 ]
 
-// The Experience tab's second box, behind "view skills". From the resume.
+// The Skills section. From the resume.
 export const skills = [
   { group: 'Languages', items: ['C#', 'TypeScript', 'JavaScript', 'SQL', 'HTML', 'SCSS/CSS', 'Python', 'Java', 'PHP'] },
   {

@@ -1,6 +1,6 @@
 // Leave repo or demo as '' to hide that link. `image` is a screenshot shown
 // beside the project; leave it as '' for none, and the text takes the full width.
-// `year` is when it was built; the Projects tab sorts by it (newest first by default).
+// `year` is when it was built; the Projects section sorts by it (newest first by default).
 export const projects = [
   {
     name: 'Finance Toolkit',
@@ -16,7 +16,7 @@ export const projects = [
     name: 'This website',
     year: 2026,
     summary:
-      'A terminal-styled portfolio built with React and Vite. Each section is a tab that collapses and expands, the text lives in data files apart from the components, and the build is a static bundle.',
+      'A terminal-styled portfolio built with React and Vite. The page reads as one terminal session: each section is a command that types itself as you scroll to it, followed by its output. The text lives in data files apart from the components, and the build is a static bundle.',
     stack: ['React', 'Vite', 'CSS'],
     repo: 'https://github.com/MahAbdulKhaliq/mahabdulkhaliq.github.io',
     demo: '',

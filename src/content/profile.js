@@ -1,4 +1,4 @@
-// The name, Home tab text and About me text.
+// The name, Home text and About me text.
 
 export const profile = {
   firstName: 'Mahmood',
@@ -6,7 +6,7 @@ export const profile = {
   // Photos live in /public/photos. Until a file exists, the site shows a
   // labelled empty frame in its place.
   portrait: './photos/portrait.jpg',
-  // Typed and erased under the name on the Home tab. `tagline` shows first and
+  // Typed and erased under the name on Home. `tagline` shows first and
   // then every third time; the two in between are drawn at random from
   // `taglines`, which is used up completely before any phrase repeats.
   tagline: 'full-stack developer',
