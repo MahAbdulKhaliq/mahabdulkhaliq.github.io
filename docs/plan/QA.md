@@ -79,3 +79,19 @@ Verify the `redesign` branch against `docs/plan/DESIGN.md` and `PRODUCT.md`. Rep
 | R10 | | |
 | R11 | | |
 | Edge cases | | |
+
+## Revision 2 checks (these replace R1 to R5, R8 and R9 above)
+
+Read "Revision 2" at the end of DESIGN.md first. S5 to S13, R6, R7, R10 and R11 still apply, reading "section" as "tab".
+
+| Check | How | Expected |
+|---|---|---|
+| V1 One screen | Any tab at 1280x800 and 375x812 | The document does not scroll; host line, toggle, footer line and prompt line are all visible |
+| V2 One tab at a time | Inspect the DOM | Exactly one `section.block` inside `main.window` |
+| V3 Switching | Click each shortcut; use back and forward; load `/#skills` | Tab, hash, title and highlighted shortcut agree; focus moves to the tab |
+| V4 Inner scroll | Open Projects | Output scrolls inside the window; the command line stays; square scrollbar thumb in a ruled track |
+| V5 `<<` `>>` | 1280 wide, then 375 wide | None at 1280; both at 375, disabled at the end with nothing further; clicking scrolls the row; 44px tap areas |
+| V6 Footer | Click the footer line with animations on | A joke types after the sentence, on every tab |
+| V7 Typed command | Animations on, switch tab; then off | Command types, then output appears; off shows both at once; hidden output cannot be focused |
+| V8 Narrow | 320x640 | No sideways overflow; toggle fully visible |
+| V9 Leftovers | Search `src` | No IntersectionObserver, scrollspy, `scrollIntoView`, fixed prompt bar or `#home` min-height left from the one-page build |

@@ -1,7 +1,8 @@
+/* The footer line sits under the window and stays on screen, so its jokes
+   are seen from every tab. */
 .footer {
-  margin-top: clamp(3.5rem, 9vh, 5.5rem);
-  border-top: 1px solid var(--rule);
-  padding: var(--space-3) 0 var(--space-4);
+  flex: none;
+  padding: var(--space-2) 0;
   color: var(--dim);
   font-size: var(--fs-small);
 }

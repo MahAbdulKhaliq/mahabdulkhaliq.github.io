@@ -16,7 +16,7 @@ export const projects = [
     name: 'This website',
     year: 2026,
     summary:
-      'A terminal-styled portfolio built with React and Vite. The page reads as one terminal session: each section is a command that types itself as you scroll to it, followed by its output. The text lives in data files apart from the components, and the build is a static bundle.',
+      'A terminal-styled portfolio built with React and Vite. The page is one terminal window: each tab is a command that types itself, followed by its output. The text lives in data files apart from the components, and the build is a static bundle.',
     stack: ['React', 'Vite', 'CSS'],
     repo: 'https://github.com/MahAbdulKhaliq/mahabdulkhaliq.github.io',
     demo: '',

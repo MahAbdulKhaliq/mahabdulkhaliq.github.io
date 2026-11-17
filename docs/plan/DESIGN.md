@@ -41,3 +41,15 @@ The footer line with its easter egg is the last line of the session.
 ## Out of scope
 
 Retaking `public/projects/portfolio.png` (it will show the old design), copy changes, and `resume.pdf`.
+
+## Revision 2 (2026-11-16): back to one window per tab
+
+The owner reviewed the one-page build and asked for changes. Where this section disagrees with the text above, this section wins.
+
+- The page is exactly one screen tall again. One tab shows at a time inside a bordered window; its command line stays at the top of the window and its output scrolls inside, with the terminal-style scrollbar from the original design.
+- The host line (`mahmood@portfolio:~`) is always on screen at the top left, with the animations toggle at the top right.
+- The prompt line stays at the bottom with the tab shortcuts and the resume link. When the row is too narrow, `<<` and `>>` buttons appear at its ends and move through the shortcuts.
+- The footer line sits between the window and the prompt line and is always on screen, so its jokes are seen from every tab.
+- With animations on, opening a tab types its command and then shows its output. With animations off the tab is complete at once.
+- Kept from the first build: seven tabs with Skills on its own, Experience as a log, larger linked project screenshots, URL hash per tab, the tab title, focus moving to the tab after a switch.
+- No longer applies: one scrolling page, scrollspy, `whoami` filling the first screen by a minimum height, sections typing on scroll.

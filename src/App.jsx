@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { TABS, tabFromHash } from './tabs/index.js'
 import { profile } from './content/profile.js'
 import useMotion, { MotionContext } from './hooks/useMotion.js'
@@ -6,76 +6,49 @@ import TopBar from './components/TopBar/TopBar.jsx'
 import PromptBar from './components/PromptBar/PromptBar.jsx'
 import Footer from './components/Footer/Footer.jsx'
 
-// Scrolls to a section; `home` is the top of the page.
-function scrollToSection(id, smooth) {
-  const behavior = smooth ? 'smooth' : 'auto'
-  const target = id === 'home' ? null : document.getElementById(id)
-  if (target) target.scrollIntoView({ behavior, block: 'start' })
-  else window.scrollTo({ top: 0, behavior })
-}
-
-// The page is one terminal session: every section, in order, as a command and
-// its output. This shell tracks which section is on screen, keeps the URL
-// hash and the browser tab title in step, and draws the pinned prompt line.
+// The page is one terminal window, exactly one screen tall. The host line
+// and the animations toggle stay at the top, the footer line and the prompt
+// line stay at the bottom, and the window between them shows one tab at a
+// time: its command, then its output, which scrolls inside the window.
 export default function App() {
   const [motion, toggleMotion] = useMotion()
-  // The section currently on screen.
+  // The open tab, kept in the URL hash so links and the back button work.
   const [current, setCurrent] = useState(tabFromHash)
+  const firstRender = useRef(true)
+
+  useEffect(() => {
+    const onChange = () => setCurrent(tabFromHash())
+    window.addEventListener('hashchange', onChange)
+    window.addEventListener('popstate', onChange)
+    return () => {
+      window.removeEventListener('hashchange', onChange)
+      window.removeEventListener('popstate', onChange)
+    }
+  }, [])
 
   // The browser tab reads like a terminal path, e.g. mahmood@portfolio/about.
   useEffect(() => {
     document.title = `${profile.firstName.toLowerCase()}@portfolio/${current}`
   }, [current])
 
-  // A link such as /#projects opens at that section. Back and forward move
-  // between the sections visited through the prompt line.
+  // After a switch, keyboard and screen-reader users carry on from the new
+  // tab rather than from the prompt line.
   useEffect(() => {
-    const jump = () => scrollToSection(tabFromHash(), false)
-    if (tabFromHash() !== 'home') jump()
-    window.addEventListener('popstate', jump)
-    return () => window.removeEventListener('popstate', jump)
-  }, [])
-
-  // The current section is the last one whose command line has passed the
-  // upper third of the screen; at the very end of the page it is the last one.
-  useEffect(() => {
-    let frame = 0
-    const update = () => {
-      frame = 0
-      const line = window.innerHeight * 0.35
-      let id = TABS[0].id
-      for (const tab of TABS) {
-        const section = document.getElementById(tab.id)
-        if (section && section.getBoundingClientRect().top <= line) id = tab.id
-      }
-      const page = document.documentElement
-      if (window.innerHeight + window.scrollY >= page.scrollHeight - 2 && window.scrollY > 0) {
-        id = TABS.at(-1).id
-      }
-      setCurrent(id)
+    if (firstRender.current) {
+      firstRender.current = false
+      return
     }
-    const onScroll = () => {
-      if (!frame) frame = window.requestAnimationFrame(update)
-    }
-    update()
-    window.addEventListener('scroll', onScroll, { passive: true })
-    window.addEventListener('resize', onScroll)
-    return () => {
-      window.cancelAnimationFrame(frame)
-      window.removeEventListener('scroll', onScroll)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [])
+    document.getElementById(current)?.focus()
+  }, [current])
 
   function go(id) {
-    if (id !== tabFromHash()) {
-      const url = id === 'home' ? window.location.pathname + window.location.search : `#${id}`
-      window.history.pushState(null, '', url)
-    }
-    scrollToSection(id, motion)
-    // Keyboard and screen-reader users carry on from the section, not the bar.
-    document.getElementById(id)?.focus({ preventScroll: true })
+    if (id === current) return
+    const url = id === 'home' ? window.location.pathname + window.location.search : `#${id}`
+    window.history.pushState(null, '', url)
+    setCurrent(id)
   }
+
+  const tab = TABS.find((item) => item.id === current)
 
   return (
     <MotionContext.Provider value={motion}>
@@ -84,23 +57,15 @@ export default function App() {
           Skip to content
         </a>
 
-        <TopBar />
+        <TopBar motion={motion} onToggleMotion={toggleMotion} />
 
-        <main id="content" tabIndex={-1}>
-          {TABS.map((tab) => (
-            <tab.Panel key={tab.id} tab={tab} motion={motion} />
-          ))}
+        <main id="content" className="window" tabIndex={-1}>
+          <tab.Panel key={tab.id} tab={tab} motion={motion} />
         </main>
 
         <Footer motion={motion} />
 
-        <PromptBar
-          tabs={TABS}
-          current={current}
-          onPick={go}
-          motion={motion}
-          onToggleMotion={toggleMotion}
-        />
+        <PromptBar tabs={TABS} current={current} onPick={go} motion={motion} />
       </div>
     </MotionContext.Provider>
   )

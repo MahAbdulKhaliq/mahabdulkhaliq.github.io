@@ -25,6 +25,7 @@
   --measure: 70ch;    /* longest comfortable line of running text */
 
   --gutter: clamp(1rem, 4vw, 2.5rem);
+  --window-pad: clamp(1rem, 3vw, 1.75rem); /* inside the window border */
   color-scheme: dark;
 }
 
@@ -40,12 +41,6 @@
 *::before,
 *::after {
   box-sizing: border-box;
-}
-
-/* Anything scrolled to, such as a focused link, stops above the prompt line
-   pinned to the bottom. */
-html {
-  scroll-padding-bottom: 4.5rem;
 }
 
 body {
@@ -97,17 +92,22 @@ ol {
   list-style: none;
 }
 
-/* The page is one column that scrolls: the host line, every section of the
-   session, then the footer line. The bottom padding keeps the last line clear
-   of the prompt line pinned to the bottom of the screen. */
+/* The page is exactly one screen tall: the host line, the window showing the
+   open tab, the footer line and the prompt line. Only the window contents
+   scroll. */
 .page {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
   max-width: 62rem;
   margin: 0 auto;
-  padding: 0 var(--gutter) 5rem;
+  padding: 0 var(--gutter);
 }
 
-main {
-  padding-top: var(--space-8);
+.window {
+  flex: 1;
+  min-height: 0;
+  border: 1px solid var(--rule);
 }
 
 main:focus {
