@@ -9,7 +9,7 @@
 }
 
 .skill-row + .skill-row {
-  margin-top: 0.6rem;
+  margin-top: var(--space-2);
 }
 
 .skill-row dt {

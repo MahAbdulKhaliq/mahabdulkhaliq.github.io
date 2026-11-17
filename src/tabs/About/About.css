@@ -3,7 +3,7 @@
   aspect-ratio: 2 / 3; /* taller than the Home portrait, so the cat fits */
   float: right;
   width: clamp(10rem, 22vw, 14rem);
-  margin: 0.35rem 0 1rem clamp(1.25rem, 3vw, 2rem);
+  margin: var(--space-1) 0 var(--space-4) clamp(1.25rem, 3vw, 2rem);
 }
 
 /* Headings read like prompt lines: "> how I got here". The ">" is decoration,
@@ -20,8 +20,8 @@
 
 /* Education sits below a dashed rule, like the gaps between jobs on Experience. */
 .about-education {
-  margin-top: 2rem;
-  padding-top: 2rem;
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
   border-top: 1px dashed var(--rule);
 }
 
@@ -43,11 +43,10 @@
   color: var(--green);
 }
 
-/* Key phrases: bold and a shade brighter than the body text. Not underlined,
-   so they can't be mistaken for links. */
+/* Key phrases are bold only. Not underlined, so they can't be mistaken for links. */
 .about strong {
   font-weight: 700;
-  color: #f4f7fa;
+  color: var(--text);
 }
 
 .about::after {

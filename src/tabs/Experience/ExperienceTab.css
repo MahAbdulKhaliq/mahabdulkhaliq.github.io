@@ -16,7 +16,7 @@
 }
 
 .box-stack .section:not([data-collapsed]) {
-  margin-top: 1.4rem;
+  margin-top: var(--space-6);
 }
 
 .box-stack .section-title {
@@ -34,12 +34,31 @@
   transition: none;
 }
 
+/* A job's title with its dates at the far end of the same line, like a
+   column in `ls -l`. The line is as wide as the bullets below it. On a phone
+   the dates sit under the title. */
+@media (min-width: 721px) {
+  .job-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 var(--space-6);
+    max-width: var(--measure);
+  }
+
+  .job-head .meta {
+    flex: none;
+    margin-top: 0;
+  }
+}
+
 /* The two buttons above the box, lined up with the box titles. */
 .box-toggles {
   flex: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.25rem;
+  gap: var(--space-2) var(--space-4);
   margin: clamp(1.25rem, 3.5vh, 2rem) 0 0 clamp(0.5rem, 2vw, 1.1rem);
 }
 

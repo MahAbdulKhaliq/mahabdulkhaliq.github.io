@@ -3,16 +3,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 1.5rem;
-  margin-bottom: 1.75rem;
+  gap: var(--space-3) var(--space-6);
+  margin-bottom: var(--space-6);
 }
 
 .project-search {
   flex: 1 1 16rem;
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  padding-bottom: 0.3rem;
+  gap: var(--space-2);
+  padding-bottom: var(--space-1);
   border-bottom: 1px dashed var(--rule);
   font-weight: 700;
 }
@@ -53,7 +53,7 @@
 }
 
 .project-count {
-  margin: -0.75rem 0 1.25rem;
+  margin: calc(-1 * var(--space-2)) 0 var(--space-4);
 }
 
 .project-count:empty {
@@ -63,23 +63,23 @@
 /* "More to come..." sits at the top, just under the search bar's own dashed
    line, so the first project needs no second rule below it. */
 .rows > .note:first-child + .row {
-  margin-top: 1.25rem;
+  margin-top: var(--space-4);
   padding-top: 0;
   border-top: 0;
 }
 
 .project-year {
-  margin-left: 0.4rem;
+  margin-left: var(--space-2);
   color: var(--dim);
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: var(--fs-small);
 }
 
 /* A project with a screenshot: the image on the left, the text beside it. */
 .project.has-shot {
   display: grid;
   grid-template-columns: clamp(12rem, 32%, 17rem) minmax(0, 1fr);
-  gap: 1rem clamp(1.25rem, 3vw, 2rem);
+  gap: var(--space-4) clamp(1.25rem, 3vw, 2rem);
   align-items: start;
 }
 

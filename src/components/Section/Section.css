@@ -35,8 +35,8 @@
   scrollbar-gutter: stable;
   overscroll-behavior: contain;
   /* Scrolled text fades out just below the top border, clear of the title. */
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0.6rem, #000 1.5rem);
-  mask-image: linear-gradient(to bottom, transparent 0.6rem, #000 1.5rem);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0.75rem, #000 1.75rem);
+  mask-image: linear-gradient(to bottom, transparent 0.75rem, #000 1.75rem);
 }
 
 /* No scrollbar while the box is collapsing or expanding. */
@@ -73,7 +73,7 @@
 }
 
 .section-body {
-  padding: 1.75rem var(--pad) 1.5rem;
+  padding: var(--space-8) var(--pad) var(--space-6);
 }
 
 .view[data-phase='closing'] .section-clip {
