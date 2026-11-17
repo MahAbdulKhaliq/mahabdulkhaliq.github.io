@@ -3,6 +3,16 @@
 // `year` is when it was built; the Projects section sorts by it (newest first by default).
 export const projects = [
   {
+    name: 'Voltway (still under development)',
+    year: 2026,
+    summary:
+      "Subject to change: a free, no-login website for EV drivers and shoppers. It has a charger map of about 2,900 Canadian fast-charging stations, a trip planner that picks charging stops from your car's charging curve and plug types, and car specs and charging curves where every figure names its source. The data is JSON files checked against JSON Schema at build time, and the trip routing runs in one Vercel Function.",
+    stack: ['Astro', 'React', 'TypeScript', 'MapLibre GL', 'ECharts', 'Vitest', 'Vercel'],
+    repo: 'https://github.com/MahAbdulKhaliq/voltway',
+    demo: 'https://voltway-routing.vercel.app/',
+    image: './projects/voltway.png',
+  },
+  {
     name: 'Finance Toolkit',
     year: 2026,
     summary:
