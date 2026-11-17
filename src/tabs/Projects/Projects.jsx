@@ -10,6 +10,24 @@ function searchText(project) {
   return [project.name, project.summary, project.stack.join(' '), project.year].join(' ').toLowerCase()
 }
 
+// A project's screenshot. When the project has a live demo, the screenshot
+// opens it.
+function Shot({ project }) {
+  const photo = (
+    <Photo
+      src={project.image}
+      alt={`Screenshot of the ${project.name} front page`}
+      className="project-shot"
+    />
+  )
+  if (!project.demo) return photo
+  return (
+    <a className="project-shot-link" href={project.demo} target="_blank" rel="noreferrer">
+      {photo}
+    </a>
+  )
+}
+
 // Rows use the shared .row classes in styles/shared.css. A project with a
 // screenshot shows it beside the text; one without gets no image area at all.
 export default function Projects({ tab }) {
@@ -64,13 +82,7 @@ export default function Projects({ tab }) {
         )}
         {shown.map((project) => (
           <li key={project.name} className={project.image ? 'row project has-shot' : 'row project'}>
-            {project.image && (
-              <Photo
-                src={project.image}
-                alt={`Screenshot of the ${project.name} front page`}
-                className="project-shot"
-              />
-            )}
+            {project.image && <Shot project={project} />}
             <div>
               <h3>
                 {project.name} <span className="project-year">{project.year}</span>

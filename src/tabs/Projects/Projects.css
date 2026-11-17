@@ -78,7 +78,7 @@
 /* A project with a screenshot: the image on the left, the text beside it. */
 .project.has-shot {
   display: grid;
-  grid-template-columns: clamp(12rem, 32%, 17rem) minmax(0, 1fr);
+  grid-template-columns: clamp(18rem, 42%, 24rem) minmax(0, 1fr);
   gap: var(--space-4) clamp(1.25rem, 3vw, 2rem);
   align-items: start;
 }
@@ -87,7 +87,20 @@
 .project-shot {
   aspect-ratio: 16 / 10;
   object-position: top;
+}
+
+.project.has-shot > :first-child {
   margin-top: 0.3rem;
+}
+
+/* A screenshot that opens the live demo. */
+.project-shot-link {
+  display: block;
+}
+
+.project-shot-link:hover .project-shot,
+.project-shot-link:focus-visible .project-shot {
+  border-color: var(--amber);
 }
 
 /* On a phone the screenshot sits above the text. */
@@ -96,7 +109,7 @@
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .project-shot {
+  .project.has-shot > :first-child {
     max-width: 22rem;
   }
 }
