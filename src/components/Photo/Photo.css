@@ -1,11 +1,27 @@
 /* ---------- Photos ---------- */
 
+/* An image is framed by four corner brackets, like box-drawing characters,
+   instead of a full border. They are drawn as background lines in the
+   padding around the image. `--corner` sets their colour. */
 .photo {
+  --corner: var(--green);
+  --across: 0.75rem 1px;
+  --down: 1px 0.75rem;
+  --line: linear-gradient(var(--corner), var(--corner));
   display: block;
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border: 1px solid var(--rule);
+  padding: 0.375rem;
+  background:
+    var(--line) top left / var(--across) no-repeat,
+    var(--line) top left / var(--down) no-repeat,
+    var(--line) top right / var(--across) no-repeat,
+    var(--line) top right / var(--down) no-repeat,
+    var(--line) bottom left / var(--across) no-repeat,
+    var(--line) bottom left / var(--down) no-repeat,
+    var(--line) bottom right / var(--across) no-repeat,
+    var(--line) bottom right / var(--down) no-repeat;
 }
 
 .portrait {
@@ -17,8 +33,7 @@
   display: grid;
   place-items: center;
   padding: 0.75rem;
-  border-style: dashed;
-  border-color: var(--dim);
+  border: 1px dashed var(--dim);
   background: repeating-linear-gradient(
     to bottom,
     transparent 0,

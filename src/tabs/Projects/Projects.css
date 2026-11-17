@@ -100,7 +100,7 @@
 
 .project-shot-link:hover .project-shot,
 .project-shot-link:focus-visible .project-shot {
-  border-color: var(--amber);
+  --corner: var(--amber);
 }
 
 /* On a phone the screenshot sits above the text. */
