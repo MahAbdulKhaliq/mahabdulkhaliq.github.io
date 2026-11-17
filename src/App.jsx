@@ -73,6 +73,8 @@ export default function App() {
       window.history.pushState(null, '', url)
     }
     scrollToSection(id, motion)
+    // Keyboard and screen-reader users carry on from the section, not the bar.
+    document.getElementById(id)?.focus({ preventScroll: true })
   }
 
   return (

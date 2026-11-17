@@ -84,10 +84,11 @@
   border-color: var(--amber);
 }
 
-/* On a phone the shortcuts, the resume link and the toggle share one row
-   that scrolls sideways. The right edge fades out to show there is more, and
+/* When the row does not fit (a phone, a tablet held upright, a zoomed-in
+   desktop) the shortcuts, the resume link and the toggle share one row that
+   scrolls sideways. The right edge fades out to show there is more, and
    the end padding lets the last item scroll clear of the fade. */
-@media (max-width: 720px) {
+@media (max-width: 900px) {
   .promptbar-row {
     gap: 0 var(--space-4);
     /* The block padding holds the taller tap areas and the focus ring. */

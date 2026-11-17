@@ -11,7 +11,8 @@ function searchText(project) {
 }
 
 // A project's screenshot. When the project has a live demo, the screenshot
-// opens it.
+// opens it. "Open live demo" beside it goes to the same place, so the
+// screenshot stays out of the Tab order.
 function Shot({ project }) {
   const photo = (
     <Photo
@@ -22,7 +23,14 @@ function Shot({ project }) {
   )
   if (!project.demo) return photo
   return (
-    <a className="project-shot-link" href={project.demo} target="_blank" rel="noreferrer">
+    <a
+      className="project-shot-link"
+      href={project.demo}
+      target="_blank"
+      rel="noreferrer"
+      tabIndex={-1}
+      aria-label={`Open the ${project.name} live demo (screenshot)`}
+    >
       {photo}
     </a>
   )

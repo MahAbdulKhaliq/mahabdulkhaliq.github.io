@@ -25,7 +25,6 @@
   --measure: 70ch;    /* longest comfortable line of running text */
 
   --gutter: clamp(1rem, 4vw, 2.5rem);
-  --pad: clamp(1rem, 3vw, 1.75rem);
   color-scheme: dark;
 }
 
@@ -41,6 +40,12 @@
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+/* Anything scrolled to, such as a focused link, stops above the prompt line
+   pinned to the bottom. */
+html {
+  scroll-padding-bottom: 4.5rem;
 }
 
 body {

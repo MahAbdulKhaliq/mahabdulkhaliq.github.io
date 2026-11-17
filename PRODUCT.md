@@ -24,7 +24,7 @@ The person first, then the skills (confirmed). Personality and story lead: the A
 ## Operating Context
 
 - Visitors arrive from LinkedIn, a resume link or GitHub, on phones and on desktops.
-- The site is a single page with six tabs selected by URL hash: Home, About me, Projects, Experience (with Skills), Outside of work, Contact.
+- The site is a single scrolling page that reads as one terminal session. Its sections, each reachable by URL hash, are Home, About me, Projects, Experience, Skills, Outside of work and Contact.
 - The resume is a PDF at `public/resume.pdf`, generated from `resume/resume.html` by `resume/build.ps1`.
 - The site is live at https://mahabdulkhaliq.github.io. Every push to `main` deploys it.
 
@@ -35,7 +35,7 @@ The person first, then the skills (confirmed). Personality and story lead: the A
 - All text, links, jobs, skills, projects and interests live as data in `src/content/*.js`.
 - An animations toggle follows `prefers-reduced-motion` until the visitor changes it.
 - There are no tests and no linter; `npm run build` is the check.
-- Undecided: whether the page stays exactly one screen tall with an inner scrolling box, and where the animations toggle sits. Neither was confirmed as binding.
+- Decided in the redesign: the page scrolls as a whole, and the animations toggle sits on the prompt line pinned to the bottom of the screen.
 
 ## Brand Commitments
 

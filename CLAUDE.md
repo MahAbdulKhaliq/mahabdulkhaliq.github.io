@@ -31,7 +31,7 @@ There is no linter and there are no tests. `npm run build` is the check that the
 
 ## CSS
 
-Styles sit next to their components (`Foo/Foo.jsx` imports `./Foo.css`). `src/main.jsx` imports the global `styles/base.css` (tokens, reset, page layout) and `styles/shared.css` (classes several tabs use: `.row`, `.meta`, `.points`, `.prose`, `.cursor`, `.text-button`) before `App`. The rest of the CSS is bundled in module import order. So when two rules of equal specificity overlap, the stylesheet imported later wins. For example, `Projects.css` overrides `.photo`'s aspect ratio only because `Projects.jsx` imports `Photo` first. Keep this in mind when you move rules between files. Colours come from the custom properties in `base.css` (`--bg`, `--text`, `--dim`, `--rule`, `--green`, `--amber`). The phone breakpoint is `max-width: 720px`.
+Styles sit next to their components (`Foo/Foo.jsx` imports `./Foo.css`). `src/main.jsx` imports the global `styles/base.css` (tokens, reset, page layout) and `styles/shared.css` (classes several sections use: `.row`, `.meta`, `.points`, `.prose`, `.cursor`, `.text-button`) before `App`. The rest of the CSS is bundled in module import order. So when two rules of equal specificity overlap, the stylesheet imported later wins. For example, `Projects.css` overrides `.photo`'s aspect ratio only because `Projects.jsx` imports `Photo` first. Keep this in mind when you move rules between files. Colours come from the custom properties in `base.css` (`--bg`, `--text`, `--dim`, `--rule`, `--green`, `--amber`). The phone breakpoint is `max-width: 720px`.
 
 ## Working in this repo
 

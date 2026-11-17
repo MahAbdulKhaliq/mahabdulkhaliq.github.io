@@ -5,6 +5,12 @@
   scroll-margin-top: var(--space-6);
 }
 
+/* A shortcut moves keyboard focus here so reading carries on from the
+   section; it needs no ring of its own. */
+.block:focus {
+  outline: none;
+}
+
 .block + .block {
   margin-top: clamp(3.5rem, 9vh, 5.5rem);
 }
@@ -27,8 +33,10 @@
 }
 
 /* Until its command has been typed, a block's output is invisible but still
-   takes up its space. Animations off never reaches this state. */
+   takes up its space, and nothing in it can be focused or clicked.
+   Animations off never reaches this state. */
 .block:not([data-state='done']) .out {
+  visibility: hidden;
   opacity: 0;
   transform: translateY(0.5rem);
 }

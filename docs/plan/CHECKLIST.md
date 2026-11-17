@@ -32,4 +32,5 @@ Build from this list. Tick an item only when its "Done when" has been checked. C
 - [x] Sizes. **Done when:** every section is checked at 1280x800, 1440x900, 375x812 and 320x640 with no sideways overflow, no text under the pinned bar at the end of the page, and 44px tap areas on phone shortcuts.
 - [x] Typed tagline and footer egg still work with animations on.
 - [x] Project `CLAUDE.md` architecture section matches the new structure.
-- [ ] Independent QA against `docs/plan/QA.md`. **Done when:** the qa-reviewer report has no open gaps, or each gap is fixed and rechecked.
+- [x] Independent QA against `docs/plan/QA.md`. **Done when:** the qa-reviewer report has no open gaps, or each gap is fixed and rechecked.
+  QA ran on 6c6cf66 (pass with issues). Fixed and rechecked: prompt bar overflow at 721-900px, sections left blank after a jump, hidden output focusable, focus under the pinned bar, shortcuts not moving focus, screenshot link name, stale docs. Left open for the owner: the "This website" project summary still describes tabs (copy was out of scope), heading order (h2 before the h1 name), and the Home links falling below the fold on screens shorter than about 660px.
