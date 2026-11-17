@@ -77,7 +77,7 @@
 }
 
 .out {
-  padding: var(--space-4) var(--window-pad) var(--space-6);
+  padding: var(--space-4) var(--window-pad);
 }
 
 /* While its command is being typed, a box is closed: only the command line
@@ -129,6 +129,6 @@
 
 @media (max-width: 720px) {
   .out {
-    padding-block: var(--space-3);
+    padding-block: var(--space-2);
   }
 }

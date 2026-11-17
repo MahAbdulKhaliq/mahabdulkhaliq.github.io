@@ -24,7 +24,7 @@ export const profile = {
   ],
   greeting: 'Hi, I’m Mahmood.',
   summary:
-    'I’m a full-stack software developer in Ontario, Canada. I’ve spent over four years building fleet software professionally, starting as an intern and staying on as a full-time developer.',
+    'I’m a full-stack software developer in Ontario, Canada. I’ve spent over four years building fleet management and telematics software professionally, starting as an intern and staying on as a full-time developer.',
   // Second portrait, shown to the right of the About me text. Set to '' to hide it.
   aboutPortrait: './photos/about.jpg', // upright 2:3
   // The About me text, in headed groups of paragraphs. Wrap a phrase in
