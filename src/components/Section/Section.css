@@ -1,37 +1,47 @@
-/* ---------- A tab: its command, and its output ---------- */
+/* ---------- A tab: a bordered box with its command, then its output ---------- */
 
-/* Fills the window. The command line stays put; the output scrolls. */
+/* As tall as its contents, up to the space between the top and bottom lines.
+   The command line stays put; the output scrolls. */
 .block {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 0;
+  border: 1px solid var(--rule);
 }
 
 /* The command line. One line tall even before anything is typed. */
 .cmd {
   flex: none;
   min-height: 1.3em;
+  box-sizing: content-box;
   padding: var(--space-3) var(--window-pad);
-  border-bottom: 1px solid var(--rule);
   font-size: var(--fs-command);
   font-weight: 700;
   line-height: 1.3;
 }
 
-.out-scroll {
-  flex: 1;
+/* A one-row grid whose row animates between 1fr and 0fr: the box closes down
+   to its command line and opens to whatever height the new output needs. */
+.clip {
+  display: grid;
+  grid-template-rows: 1fr;
   min-height: 0;
+}
+
+.out-scroll {
+  min-height: 0;
+  border-top: 1px solid var(--rule);
   overflow-x: hidden;
   overflow-y: auto;
   /* The gutter is always reserved so text doesn't reflow when the scrollbar
      comes and goes. */
   scrollbar-gutter: stable;
   overscroll-behavior: contain;
-  /* A focused link scrolls clear of the window's edges. */
+  /* A focused link scrolls clear of the box's edges. */
   scroll-padding: var(--space-6) 0;
 }
 
-/* The focus ring sits just inside the window border. */
+/* The focus ring sits just inside the box border. */
 .out-scroll:focus-visible {
   outline-offset: -2px;
 }
@@ -66,19 +76,43 @@
 
 .out {
   padding: var(--space-4) var(--window-pad) var(--space-6);
-  transition:
-    opacity 0.35s ease-out,
-    transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* Until its command has been typed, a tab's output is invisible and nothing
-   in it can be focused or clicked. Animations off never reaches this state. */
-.block:not([data-state='done']) .out {
+/* While its command is being typed, a box is closed: only the command line
+   shows, and nothing in the output can be focused or clicked. */
+.block[data-state='typing'] .clip {
+  grid-template-rows: 0fr;
+}
+
+.block[data-state='typing'] .out-scroll {
   visibility: hidden;
-  opacity: 0;
-  transform: translateY(0.5rem);
+  border-top-color: transparent;
 }
 
-[data-motion='off'] .out {
-  transition: none;
+/* Then it opens. OPEN_MS in Section.jsx is a little longer than this. */
+.block[data-state='opening'] .clip {
+  animation: box-open 0.36s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Before a tab switch the old box closes. Matches CLOSE_MS in App.jsx. */
+.window[data-closing] .clip {
+  animation: box-close 0.24s ease-in both;
+}
+
+/* No scrollbar while the box is closing or opening. */
+.block:not([data-state='open']) .out-scroll,
+.window[data-closing] .out-scroll {
+  overflow-y: hidden;
+}
+
+@keyframes box-close {
+  to {
+    grid-template-rows: 0fr;
+  }
+}
+
+@keyframes box-open {
+  from {
+    grid-template-rows: 0fr;
+  }
 }

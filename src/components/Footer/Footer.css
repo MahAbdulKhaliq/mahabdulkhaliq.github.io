@@ -1,8 +1,28 @@
-/* The footer line sits under the window and stays on screen, so its jokes
-   are seen from every tab. */
+/* The footer line is the last line on screen, under the prompt line, so its
+   jokes are seen from every tab. */
 .footer {
   flex: none;
-  padding: var(--space-2) 0;
+  padding: var(--space-2) 0 calc(var(--space-2) + env(safe-area-inset-bottom));
   color: var(--dim);
   font-size: var(--fs-small);
+}
+
+/* The real line and the invisible sizer copies share one grid cell, which is
+   as tall as the tallest of them. */
+.footer p,
+.footer-sizer {
+  display: grid;
+}
+
+.footer p > *,
+.footer-sizer > * {
+  grid-area: 1 / 1;
+}
+
+.footer p > .text-button {
+  align-self: start;
+}
+
+.footer-sizer {
+  visibility: hidden;
 }

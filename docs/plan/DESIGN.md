@@ -53,3 +53,11 @@ The owner reviewed the one-page build and asked for changes. Where this section 
 - With animations on, opening a tab types its command and then shows its output. With animations off the tab is complete at once.
 - Kept from the first build: seven tabs with Skills on its own, Experience as a log, larger linked project screenshots, URL hash per tab, the tab title, focus moving to the tab after a switch.
 - No longer applies: one scrolling page, scrollspy, `whoami` filling the first screen by a minimum height, sections typing on scroll.
+
+## Revision 3 (2026-11-16): closing and opening box, footer last
+
+Asked for by the owner after revision 2. This section wins where it disagrees with the text above.
+
+- With animations on, a tab switch closes the box down to its command line, types the new command, then opens the box to the height the new output needs. The output no longer fades in. The box is as tall as its contents, up to the space available.
+- The prompt line sits directly under the box and the footer line is the last line on screen.
+- The footer is always as tall as its longest joke needs, so typing a joke never moves anything.

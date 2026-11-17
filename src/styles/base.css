@@ -92,9 +92,8 @@ ol {
   list-style: none;
 }
 
-/* The page is exactly one screen tall: the host line, the window showing the
-   open tab, the footer line and the prompt line. Only the window contents
-   scroll. */
+/* The page is exactly one screen tall: the host line, the open tab's box,
+   the prompt line and the footer line. Only the box's output scrolls. */
 .page {
   display: flex;
   flex-direction: column;
@@ -104,10 +103,14 @@ ol {
   padding: 0 var(--gutter);
 }
 
+/* The space between the top and bottom lines. The open tab's box sits at
+   the top of it and is only as tall as it needs to be. */
 .window {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   min-height: 0;
-  border: 1px solid var(--rule);
+  padding-bottom: var(--space-3);
 }
 
 main:focus {

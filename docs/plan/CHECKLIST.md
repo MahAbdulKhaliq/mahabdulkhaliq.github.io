@@ -48,3 +48,12 @@ Build from this list. Tick an item only when its "Done when" has been checked. C
 - [x] `CLAUDE.md`, `PRODUCT.md`, the "This website" summary and its screenshot match the new structure.
 - [x] Independent QA of revision 2.
   QA ran on 99770c0 (pass with issues). Fixed and rechecked: the skip link switching to Home, keyboard scrolling of the window, << >> going stale when the font loads, a focused << >> becoming disabled, a stale comment. Left open for the owner: output hidden for up to a second while the command types (as designed), the footer growing a line on a phone when a joke wraps, heading order.
+
+## Phase 6: revision 3
+
+- [x] Box closes, command types, box opens on a tab switch with animations on; instant swap with them off. Files: `src/App.jsx`, `src/components/Section/*`.
+  **Done when:** during a switch the box height goes from full to the command line and back; `data-state` runs typing, opening, open; no fade.
+- [x] Prompt line above the footer line. Files: `src/App.jsx`, `src/components/PromptBar/PromptBar.css`.
+- [x] Footer height fixed at the longest joke. Files: `src/components/Footer/*`.
+  **Done when:** at 375 wide the footer height is the same before, during and after six typed jokes.
+- [ ] Independent QA of revision 3 (not run).

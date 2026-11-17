@@ -1,12 +1,11 @@
-/* The prompt line, at the bottom of the screen under the footer line. */
+/* The prompt line, under the window and above the footer line. */
 .promptbar {
   flex: none;
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  border-top: 1px solid var(--rule);
+  border-block: 1px solid var(--rule);
   font-size: var(--fs-small);
-  padding-bottom: env(safe-area-inset-bottom);
 }
 
 .promptbar-sign {
