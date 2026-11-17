@@ -15,7 +15,9 @@ export default function Footer({ motion }) {
         <span className="footer-sizer" aria-hidden="true">
           {footerExtras.map((phrase) => (
             <span key={phrase}>
-              &gt; {sentence} {phrase} __
+              &gt; {sentence}
+              {/* Joined the way FooterLine.jsx types it, plus room for the cursor. */}
+              {phrase.startsWith('...') ? phrase.slice(1) : ` ${phrase}`}__
             </span>
           ))}
         </span>

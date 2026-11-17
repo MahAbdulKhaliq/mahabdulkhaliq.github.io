@@ -105,3 +105,10 @@
     min-height: 2.75rem;
   }
 }
+
+/* Keeps the links on the first screen now that the footer line is taller. */
+@media (max-width: 720px) {
+  .hero {
+    padding-top: 0;
+  }
+}

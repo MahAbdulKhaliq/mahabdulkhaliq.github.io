@@ -56,4 +56,6 @@ Build from this list. Tick an item only when its "Done when" has been checked. C
 - [x] Prompt line above the footer line. Files: `src/App.jsx`, `src/components/PromptBar/PromptBar.css`.
 - [x] Footer height fixed at the longest joke. Files: `src/components/Footer/*`.
   **Done when:** at 375 wide the footer height is the same before, during and after six typed jokes.
-- [ ] Independent QA of revision 3 (not run).
+- [x] Clicking the host line opens the first tab; the old command is backspaced while the box closes. Files: `src/components/TopBar/*`, `src/components/Section/Section.jsx`.
+- [x] Independent QA of revision 3.
+  QA ran on c7dff69 (pass with issues). Fixed and rechecked: the box snapping shut on tall tabs instead of closing steadily, focus jumping to the closing box on the first switch, the command re-typing when animations are turned off mid-close, focus being pulled from a visitor who has tabbed on, the footer sizer not matching the typed text, stale comments and docs. Left as they are: a switch called off within 240ms reopens without animation; the footer reserves the height of its longest joke (two lines on desktop, four at 375 wide), as asked.

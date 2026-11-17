@@ -95,3 +95,17 @@ Read "Revision 2" at the end of DESIGN.md first. S5 to S13, R6, R7, R10 and R11 
 | V7 Typed command | Animations on, switch tab; then off | Command types, then output appears; off shows both at once; hidden output cannot be focused |
 | V8 Narrow | 320x640 | No sideways overflow; toggle fully visible |
 | V9 Leftovers | Search `src` | No IntersectionObserver, scrollspy, `scrollIntoView`, fixed prompt bar or `#home` min-height left from the one-page build |
+
+## Revision 3 checks
+
+S6 above no longer applies: `CLOSE_MS` and `OPEN_MS` are back, in `src/components/Section/Section.jsx`.
+
+| Check | How | Expected |
+|---|---|---|
+| W1 Close and open | Animations on, 1280x800, switch from Projects to Contact and back | The box border moves steadily for the whole close (240ms) and open (360ms), on tall and short tabs; no fade |
+| W2 Backspace | Same switch | The old command is erased before the swap; the new one types; then the box opens |
+| W3 Animations off | Switch tabs; also turn animations off during a close | The new tab appears at once; nothing re-types |
+| W4 Order | Any tab | Host line, box, prompt line, footer line from top to bottom |
+| W5 Footer height | 375 wide, click the footer line six times | Footer height never changes |
+| W6 Host line | Click `mahmood@portfolio:~` from any tab | Home opens; hash cleared |
+| W7 Focus | Load `/`, Tab to a shortcut, Enter | Focus stays on the shortcut during the close and moves to the new output once it opens |

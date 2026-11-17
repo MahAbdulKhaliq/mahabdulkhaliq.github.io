@@ -20,8 +20,10 @@
   line-height: 1.3;
 }
 
-/* A one-row grid whose row animates between 1fr and 0fr: the box closes down
-   to its command line and opens to whatever height the new output needs. */
+/* A one-row grid, so the output can be squeezed to nothing. The box closes
+   down to its command line and opens to whatever height the new output
+   needs, by animating max-height between zero and --clip-h, the height the
+   output has on screen, which Section.jsx measures. */
 .clip {
   display: grid;
   grid-template-rows: 1fr;
@@ -94,8 +96,8 @@
   animation: box-open 0.36s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 
-/* Before a tab switch the old box closes. Matches CLOSE_MS in App.jsx. */
-.window[data-closing] .clip {
+/* Before a tab switch the old box closes. Matches CLOSE_MS in Section.jsx. */
+[data-motion='on'] .window[data-closing] .clip {
   animation: box-close 0.24s ease-in both;
 }
 
@@ -106,13 +108,27 @@
 }
 
 @keyframes box-close {
+  from {
+    max-height: var(--clip-h);
+  }
+
   to {
-    grid-template-rows: 0fr;
+    max-height: 0;
   }
 }
 
 @keyframes box-open {
   from {
-    grid-template-rows: 0fr;
+    max-height: 0;
+  }
+
+  to {
+    max-height: var(--clip-h);
+  }
+}
+
+@media (max-width: 720px) {
+  .out {
+    padding-block: var(--space-3);
   }
 }

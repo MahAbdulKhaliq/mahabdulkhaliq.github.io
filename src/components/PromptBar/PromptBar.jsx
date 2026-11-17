@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './PromptBar.css'
 
-// The prompt line at the bottom of the window. Each tab's command is a
+// The prompt line, under the box and above the footer line. Each tab's command is a
 // shortcut that opens it; the open one is shown inverted. The resume link
 // sits at the end. When the row is too narrow to show every shortcut, `<<`
 // and `>>` appear at its ends and move through them. At either end the

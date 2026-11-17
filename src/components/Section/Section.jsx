@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { createContext, useContext, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { MotionContext } from '../../hooks/useMotion.js'
 import './Section.css'
 
@@ -33,6 +33,9 @@ const OPEN_MS = 400
 export default function Section({ tab, children }) {
   const motion = useContext(MotionContext)
   const { closing, takeFocus } = useContext(SwitchContext)
+  // Decided when the tab opens, so the tab being left never takes focus.
+  const [focusOnOpen] = useState(takeFocus)
+  const clip = useRef(null)
   const scroller = useRef(null)
   const length = tab.command.length
   // How many characters of the command are on screen.
@@ -61,10 +64,26 @@ export default function Section({ tab, children }) {
     return () => window.clearTimeout(timer)
   }, [state, typed, length, closing])
 
+  // The close and open animations run between zero and the height the output
+  // has on screen, which CSS cannot know, so it is measured here and handed
+  // over as --clip-h. Closing starts from the current height, also mid-open.
+  // Opening needs the full height, so the animation is lifted for the reading.
+  useLayoutEffect(() => {
+    const box = clip.current
+    if (closing) {
+      box.style.setProperty('--clip-h', `${box.offsetHeight}px`)
+    } else if (state === 'opening') {
+      box.style.animation = 'none'
+      const height = box.offsetHeight
+      box.style.animation = ''
+      box.style.setProperty('--clip-h', `${height}px`)
+    }
+  }, [closing, state])
+
   // Backspace the command while the box closes. The last character goes a
   // little before the swap. If the switch is called off, put it back.
   useEffect(() => {
-    if (!closing) {
+    if (!closing || !motion) {
       setTyped((count) => (state === 'typing' ? count : length))
       return undefined
     }
@@ -73,23 +92,29 @@ export default function Section({ tab, children }) {
     return () => window.clearTimeout(timer)
     // `state` only matters at the moment a switch is called off.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [closing, typed, length])
+  }, [closing, typed, length, motion])
 
   const typing = state === 'typing'
   useEffect(() => {
-    if (takeFocus && !typing) scroller.current.focus({ preventScroll: true })
-  }, [takeFocus, typing])
+    if (!focusOnOpen || typing) return
+    // Only from where the switch left it: nowhere, the open tab's shortcut or
+    // the host line. A visitor who has tabbed on elsewhere is left alone.
+    const from = document.activeElement
+    if (from === document.body || from.matches('.nav [aria-current], .bar-host')) {
+      scroller.current.focus({ preventScroll: true })
+    }
+  }, [focusOnOpen, typing])
 
   return (
     <section id={tab.id} className="block" data-state={state} aria-labelledby={`${tab.id}-title`}>
       <h2 id={`${tab.id}-title`} className="cmd" aria-label={tab.label}>
         <span aria-hidden="true">
           <span className="prompt">$</span> {tab.command.slice(0, typed)}
-          {(typing || closing) && <span className="cursor" />}
+          {(typing || (closing && motion)) && <span className="cursor" />}
         </span>
       </h2>
       {/* clip is what closes and opens when tabs change. */}
-      <div className="clip">
+      <div className="clip" ref={clip}>
         {/* Focusable so the keyboard can scroll it, also on tabs with no links. */}
         <div
           ref={scroller}

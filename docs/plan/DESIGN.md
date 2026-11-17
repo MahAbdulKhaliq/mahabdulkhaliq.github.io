@@ -61,3 +61,5 @@ Asked for by the owner after revision 2. This section wins where it disagrees wi
 - With animations on, a tab switch closes the box down to its command line, types the new command, then opens the box to the height the new output needs. The output no longer fades in. The box is as tall as its contents, up to the space available.
 - The prompt line sits directly under the box and the footer line is the last line on screen.
 - The footer is always as tall as its longest joke needs, so typing a joke never moves anything.
+- The old command is backspaced away while the box closes, within the same 240ms, before the new one types. The whole switch takes as long as it did without the backspace.
+- Clicking the host line opens the first tab.

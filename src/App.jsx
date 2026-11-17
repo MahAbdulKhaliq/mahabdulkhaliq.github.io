@@ -60,6 +60,14 @@ export default function App() {
     }
   }
 
+  // Turning animations off while a box is closing finishes the switch at once.
+  useEffect(() => {
+    if (motion || !closing) return
+    window.clearTimeout(timer.current)
+    setShown(targetRef.current)
+    setClosing(false)
+  }, [motion, closing])
+
   // Back and forward buttons, and links to a tab, move between tabs.
   useEffect(() => {
     const onChange = () => go(tabFromHash(), { push: false })

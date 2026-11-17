@@ -26,3 +26,11 @@
 .footer-sizer {
   visibility: hidden;
 }
+
+/* On a phone the reserved height is several lines, so the line is set a
+   size smaller to leave more of the screen to the box. */
+@media (max-width: 720px) {
+  .footer {
+    font-size: 0.75rem;
+  }
+}
