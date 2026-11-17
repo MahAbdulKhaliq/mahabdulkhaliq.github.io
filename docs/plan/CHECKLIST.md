@@ -29,7 +29,7 @@ Build from this list. Tick an item only when its "Done when" has been checked. C
 
 ## Phase 4: verify and document
 
-- [ ] Sizes. **Done when:** every section is checked at 1280x800, 1440x900, 375x812 and 320x640 with no sideways overflow, no text under the pinned bar at the end of the page, and 44px tap areas on phone shortcuts.
-- [ ] Typed tagline and footer egg still work with animations on.
-- [ ] Project `CLAUDE.md` architecture section matches the new structure.
+- [x] Sizes. **Done when:** every section is checked at 1280x800, 1440x900, 375x812 and 320x640 with no sideways overflow, no text under the pinned bar at the end of the page, and 44px tap areas on phone shortcuts.
+- [x] Typed tagline and footer egg still work with animations on.
+- [x] Project `CLAUDE.md` architecture section matches the new structure.
 - [ ] Independent QA against `docs/plan/QA.md`. **Done when:** the qa-reviewer report has no open gaps, or each gap is fixed and rechecked.
