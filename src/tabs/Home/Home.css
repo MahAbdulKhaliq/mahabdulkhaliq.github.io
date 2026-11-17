@@ -63,8 +63,40 @@
   color: var(--amber);
 }
 
+/* On a phone the portrait shrinks to a thumbnail beside the greeting, so the
+   summary and the links stay on the first screen. The text wrapper drops out
+   of the layout and its children sit on the grid directly. */
 @media (max-width: 720px) {
   .intro {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: 4.5rem minmax(0, 1fr);
+    gap: 0.75rem 1rem;
+    align-items: center;
+    margin-top: 0.5rem; /* the tagline above reserves a second line here */
+  }
+
+  .intro-text {
+    display: contents;
+  }
+
+  .intro .portrait {
+    width: 100%;
+  }
+
+  .lede,
+  .links {
+    grid-column: 1 / -1;
+    margin-top: 0;
+  }
+
+  /* Two columns of full-height tap targets. */
+  .links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 1rem;
+  }
+
+  .links a {
+    display: flex;
+    min-height: 2.75rem;
   }
 }

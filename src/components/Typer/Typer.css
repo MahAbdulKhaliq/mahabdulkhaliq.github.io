@@ -7,3 +7,27 @@
   line-height: 1.5;
   white-space: nowrap;
 }
+
+/* On a phone the longest phrases don't fit on one line, so they wrap the way
+   a terminal would, indented past the prompt. Two lines are always reserved
+   so nothing below moves while a phrase is typed. */
+@media (max-width: 720px) {
+  .typer {
+    min-height: 3em;
+    padding-left: 2ch;
+    white-space: normal;
+  }
+
+  /* Buttons reset text-indent, so the hanging indent is set here. */
+  .typer .text-button {
+    text-indent: -2ch;
+  }
+}
+
+/* On the narrowest phones, small enough that the main tagline and its cursor
+   still fit on one line. */
+@media (max-width: 360px) {
+  .typer {
+    font-size: 1rem;
+  }
+}

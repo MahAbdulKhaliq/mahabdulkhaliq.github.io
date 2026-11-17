@@ -27,7 +27,7 @@ export default function Home({ tab, motion }) {
           {profile.portrait && (
             <Photo src={profile.portrait} alt={`Portrait of ${fullName}`} className="portrait" />
           )}
-          <div>
+          <div className="intro-text">
             <p className="greeting">{profile.greeting}</p>
             <p className="lede">{profile.summary}</p>
 

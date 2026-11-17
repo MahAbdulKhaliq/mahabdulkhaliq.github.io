@@ -60,8 +60,59 @@
   border-color: var(--amber);
 }
 
+/* On a phone the tabs and the toggle share one row that scrolls sideways.
+   The right edge fades out to show there is more, and the end padding lets
+   the last item scroll clear of the fade. */
 @media (max-width: 720px) {
   .bar-host {
     display: none;
+  }
+
+  .bar {
+    padding: 0;
+  }
+
+  .bar-right {
+    flex: 1 1 auto;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0 1rem;
+    min-width: 0;
+    /* The block padding holds the taller tap areas and the focus ring; the
+       start padding and matching negative margin keep the first ring unclipped. */
+    margin-left: -0.4rem;
+    padding: 0.65rem 2.5rem 0.65rem 0.4rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+    -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+    mask-image: linear-gradient(to right, #000 calc(100% - 2.5rem), transparent);
+  }
+
+  .bar-right::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav {
+    flex: none;
+    flex-wrap: nowrap;
+    gap: 0 0.75rem;
+  }
+
+  .nav a,
+  .motion-toggle {
+    position: relative;
+    flex: none;
+    white-space: nowrap;
+  }
+
+  /* Invisible padding that makes each one a 44px tap target without
+     changing how the selected block looks. */
+  .nav a::after,
+  .motion-toggle::after {
+    content: '';
+    position: absolute;
+    inset: -0.65rem -0.375rem;
   }
 }

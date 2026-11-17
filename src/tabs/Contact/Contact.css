@@ -51,3 +51,20 @@
 .contact-item:hover .contact-icon {
   color: var(--amber);
 }
+
+/* On a phone each address is a full-height tap target, and slightly smaller
+   so the longest one fits on a line. */
+@media (max-width: 720px) {
+  .contact-list {
+    gap: 0;
+  }
+
+  .contact-item {
+    gap: 0.6rem;
+  }
+
+  .contact-item a {
+    padding: 0.65rem 0;
+    font-size: 0.9rem;
+  }
+}
