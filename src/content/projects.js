@@ -6,7 +6,7 @@ export const projects = [
     name: 'Finance Toolkit',
     year: 2026,
     summary:
-      'Four connected personal-finance calculators: what fund fees (MER) really cost over the years, CAGR, renting versus buying a home, and how long until you can retire. A shared fund library links the tools, a Canada/US switch changes the currency and mortgage rules, and any scenario can be shared as a link. The finance logic is pure functions covered by unit tests.',
+      'Four connected personal-finance calculators: what fund fees (MER) really cost over the years, CAGR, renting versus buying a home, and the age you could retire at. Each one reads as a sentence you edit in place, answered by a single figure. A shared fund library links the tools, a Canada/US switch changes the currency and mortgage rules, and any scenario can be shared as a link. The finance logic is pure functions covered by unit tests.',
     stack: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Recharts', 'Zustand', 'Vitest'],
     repo: 'https://github.com/MahAbdulKhaliq/finance-toolkit',
     demo: 'https://mahabdulkhaliq.github.io/finance-toolkit/',
