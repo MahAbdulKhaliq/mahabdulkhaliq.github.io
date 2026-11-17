@@ -4,16 +4,24 @@
   align-items: center;
   justify-content: space-between;
   gap: var(--space-4);
-  padding: var(--space-3) 0;
   font-size: var(--fs-small);
 }
 
+/* The host name is a link to the first tab. It looks like a title, not a
+   link, until it is hovered. Its padding gives the bar its height and makes
+   the link a full-height tap target. */
 .bar-host {
   min-width: 0;
+  padding: var(--space-3) 0;
   overflow: hidden;
   color: var(--green);
+  text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.bar-host:hover {
+  color: var(--amber);
 }
 
 .motion-toggle {

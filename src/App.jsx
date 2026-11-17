@@ -1,23 +1,20 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { TABS, tabFromHash } from './tabs/index.js'
 import { profile } from './content/profile.js'
 import useMotion, { MotionContext } from './hooks/useMotion.js'
-import { TakeFocusContext } from './components/Section/Section.jsx'
+import { CLOSE_MS, SwitchContext } from './components/Section/Section.jsx'
 import TopBar from './components/TopBar/TopBar.jsx'
 import PromptBar from './components/PromptBar/PromptBar.jsx'
 import Footer from './components/Footer/Footer.jsx'
-
-// Keep in step with the box-close animation in components/Section/Section.css.
-const CLOSE_MS = 240
 
 // The page is one terminal window, exactly one screen tall. The host line
 // and the animations toggle stay at the top; the prompt line and the footer
 // line stay at the bottom. The box between them shows one tab at a time: its
 // command, then its output, which scrolls inside the box.
 //
-// With animations on, switching tabs closes the box down to its command
-// line, swaps the tab, types the new command and opens the box again. With
-// animations off the new tab simply replaces the old one.
+// With animations on, switching tabs closes the box while its command is
+// backspaced away, swaps the tab, types the new command and opens the box
+// again. With animations off the new tab simply replaces the old one.
 export default function App() {
   const [motion, toggleMotion] = useMotion()
   // `shown` is the tab on screen. `target` is where the last click is heading,
@@ -77,6 +74,7 @@ export default function App() {
   }, [])
 
   const tab = TABS.find((item) => item.id === shown)
+  const switchState = useMemo(() => ({ closing, takeFocus: switched }), [closing, switched])
 
   return (
     <MotionContext.Provider value={motion}>
@@ -93,12 +91,12 @@ export default function App() {
           Skip to content
         </a>
 
-        <TopBar motion={motion} onToggleMotion={toggleMotion} />
+        <TopBar motion={motion} onToggleMotion={toggleMotion} onHome={() => go('home')} />
 
         <main id="content" className="window" data-closing={closing ? '' : undefined}>
-          <TakeFocusContext.Provider value={switched}>
+          <SwitchContext.Provider value={switchState}>
             <tab.Panel key={tab.id} tab={tab} motion={motion} />
-          </TakeFocusContext.Provider>
+          </SwitchContext.Provider>
         </main>
 
         <PromptBar tabs={TABS} current={target} onPick={go} motion={motion} />
