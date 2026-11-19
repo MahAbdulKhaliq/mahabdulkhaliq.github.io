@@ -6,7 +6,7 @@ export const projects = [
     name: 'Voltway (still under development)',
     year: 2026,
     summary:
-      "Subject to change: a free, no-login website for EV drivers and shoppers. It has a charger map of about 2,900 Canadian fast-charging stations, a trip planner that picks charging stops from your car's charging curve and plug types, and car specs and charging curves where every figure names its source. The data is JSON files checked against JSON Schema at build time, and the trip routing runs in one Vercel Function.",
+      "Subject to change: a free, no-login website for EV drivers and shoppers. It has a map of public chargers across Canada and the US, a trip planner that picks charging stops from your car's charging curve and plug types (including trips across the border), and specs and charging curves for 84 cars where every figure names its source. The data is JSON files checked against JSON Schema at build time, and the trip routing runs in one Vercel Function.",
     stack: ['Astro', 'React', 'TypeScript', 'MapLibre GL', 'ECharts', 'Vitest', 'Vercel'],
     repo: 'https://github.com/MahAbdulKhaliq/voltway',
     demo: 'https://voltway-routing.vercel.app/',
